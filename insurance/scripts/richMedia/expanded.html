@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta name="viewport" content="width=320">
+
+<title>Expanded</title>
+
+<style type="text/css">
+
+@font-face {
+	font-family: 'RieslingRegular';
+	src: url('media/riesling.eot');
+	src: local('Riesling Regular'), local('Riesling'), url('fonts/riesling.ttf') format('truetype');
+}
+
+</style>
+</head>
+<body>
+<script type="text/javascript">
+	window.addEventListener("load",function() {
+		setTimeout(function(){
+			window.scrollTo(0, 1);
+		}, 100);
+	});
+
+	var clickid = getUrlVar('clickid');
+	var appid = getUrlVar('appid');
+
+	var admaxim_clickid = (typeof clickid != "undefined") ? clickid : "test_clickid";
+	var admaxim_appid = (typeof appid != "undefined") ? appid : "test_appid";
+
+	function getUrlVar(key){
+		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+		return (result && unescape(result[1]) || undefined);
+	}	
+</script>
+<div id="bg" style="position:absolute; top:0px; left:0px; width:320px; height:420px; background:url(media/loading5.gif) 10px 0px"></div>
+
+<script type="text/javascript" src="admaxim_ad_exp.js"></script>
+
+
+<div id="AdMaximRichMedia" style="position:absolute; top:0px; left:0px"></div>
+</body>
+</html>
