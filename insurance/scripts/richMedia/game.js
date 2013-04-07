@@ -29,7 +29,9 @@ var AM_Game = function(){
 		{src:"media/game/view_start.png", id:"view_start"},
 		{src:"media/game/view_tap.png", id:"view_tap"},
 		{src:"media/game/view_end.png", id:"view_end"},
-		{src:"media/game/crack.png", id:"crack"},
+		{src:"media/game/crack1.png", id:"crack1"},
+		{src:"media/game/crack2.png", id:"crack2"},
+		{src:"media/game/crack3.png", id:"crack3"},
 		{src:"media/game/btn_fix.png", id:"btn_fix"}
 	];
 
@@ -38,9 +40,11 @@ var AM_Game = function(){
 	var trackDic = {};
 	var trackPlaying = false;
 	var audioLoaded = false;
-	var MP3_URL = "media/game/shatter.mp3";
+	var MP3_URL = "media/game/glass_track.mp3";
 	var TRACKS = [
-		{name:'crack', start:0, end:2}
+		{name:'crack1', start:0, end:.9},
+		{name:'crack2', start:1, end:1.9},
+		{name:'crack3', start:2, end:2.9}
 	];
 
 	var firstTouch = true;
@@ -280,11 +284,12 @@ var AM_Game = function(){
 		var y = evt.stageY;
 		console.log(evt);
 
-		playEffect("crack");
-		if (currentCrackSound === 1) currentCrackSound = 2;
-			else currentCrackSound = 1;
+		playEffect("crack" + randomNumberBetween(1,3));
+		var newCrack = imgLib['crack' + randomNumberBetween(1,3)].clone();
 
-		var newCrack = imgLib['crack'].clone();
+		if (currentCrackSound > 2) currentCrackSound = 1;
+			else currentCrackSound += 1;
+
 		newCrack.x = x;
 		newCrack.y = y;
 		newCrack.regX = 440;
@@ -314,7 +319,8 @@ var AM_Game = function(){
 
 
 		imgLib['view_end'].visible = true;
-		createjs.Tween.get(imgLib['view_end']).to({alpha:1},1000);
+		//createjs.Tween.get(imgLib['view_end']).to({alpha:1},0);
+		imgLib['view_end'].alpha = 1;
 
 		setTimeout(function(){
 			console.log('open:' + FINAL_URL);

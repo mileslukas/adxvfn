@@ -340,10 +340,10 @@ var AM_Game = function(){
 					.to({x:winX-136},700,createjs.Ease.quadInOut)
 					.call(function(){
 						var newMaskScale = 6;
-						createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},1000, createjs.Ease.quadInOut);
+						createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},2000, createjs.Ease.quadInOut);
 						//createjs.Tween.get(phonePage).to({y:-200},200, createjs.Ease.quadInOut);
 					})
-					.wait(3000)
+					.wait(4000)
 					.call(gameOver)
 				;
 			} 
@@ -369,7 +369,8 @@ var AM_Game = function(){
 
 		gameHolder.addChild(imgLib['view_end']);
 
-		createjs.Tween.get(imgLib['view_end']).to({alpha:1},1000);
+		//createjs.Tween.get(imgLib['view_end']).to({alpha:1},1000);
+		imgLib['view_end'].alpha = 1;
 	
 	}
 	
