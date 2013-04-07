@@ -24,27 +24,23 @@ var AM_Game = function(){
 	var crackHolder;
 
  	var MANIFEST = [
-		{src:"media/game/logo.png", id:"logo_red"},
+		{src:"media/game/logo.png", id:"logo"},
 		{src:"media/game/logo_white.png", id:"logo_white"},
 		{src:"media/game/view_start.png", id:"view_start"},
-		{src:"media/game/sim.png", id:"sim"},
-		{src:"media/game/sim_holder.png", id:"sim_holder"},
-		{src:"media/game/txt_drag_sim.png", id:"txt_drag_sim"},
-		{src:"media/game/phone_red.png", id:"phone_red"},
-		{src:"media/game/view_phone.jpg", id:"view_phone"},
-		{src:"media/game/view_end.png", id:"view_end"}
+		{src:"media/game/view_tap.png", id:"view_tap"},
+		{src:"media/game/view_end.png", id:"view_end"},
+		{src:"media/game/crack.png", id:"crack"},
+		{src:"media/game/btn_fix.png", id:"btn_fix"}
 	];
-
 
 
 	var audioTimer;
 	var trackDic = {};
 	var trackPlaying = false;
 	var audioLoaded = false;
-	var MP3_URL = "media/game/window_shatter.mp3";
+	var MP3_URL = "media/game/shatter.mp3";
 	var TRACKS = [
-		{name:'crack1', start:.1, end:.5},
-		{name:'crack2', start:1, end:2}
+		{name:'crack', start:0, end:2}
 	];
 
 	var firstTouch = true;
@@ -123,7 +119,7 @@ var AM_Game = function(){
 
 		var whitebox2 = new createjs.Graphics();
 		whitebox2.setStrokeStyle(4);
-		whitebox2.beginStroke('#e60000');
+		whitebox2.beginStroke('#E2231A');
 		whitebox2.beginFill('white');
 		whitebox2.drawRoundRect(0, 0, 140, 50, 3);
 		var whiteboxShape2 = new createjs.Shape(whitebox2);
@@ -138,7 +134,7 @@ var AM_Game = function(){
 		loadBarHolder.addChild(bgShape);
 
 		var lb = new createjs.Graphics();
-		lb.beginFill('#e60000');
+		lb.beginFill('#E2231A');
 		lb.drawRect(lX, lY, lWidth, lHeight);
 		loadBar = new createjs.Shape(lb);
 		loadBarHolder.addChild(loadBar);
@@ -148,7 +144,7 @@ var AM_Game = function(){
 		var loadMask = new createjs.Shape(m);
 		loadBarHolder.addChild(loadMask);
 
-		loadTxt = new createjs.Text("Loading 0%", "19px Arial", "e60000");
+		loadTxt = new createjs.Text("Loading 0%", "19px Arial", "E2231A");
 		loadTxt.textAlign = "center";
 		loadTxt.x = 70;
 		loadTxt.y = 8;
@@ -198,58 +194,48 @@ var AM_Game = function(){
 		buildGame();
 	}
 
-	var introPage;
-	var phonePage;
-	var phoneRedMask;
 
 	function buildGame(){
 		console.log('buildGame');
 		console.log(imgLib);
-
-
-		phonePage = new createjs.Container();
-		phonePage.addChild(imgLib['view_phone']);
-		imgLib['txt_drag_sim'].x = 382;
-		imgLib['txt_drag_sim'].y = 110;
-		phonePage.addChild(imgLib['txt_drag_sim']);
-		imgLib['sim_holder'].x = 218;
-		imgLib['sim_holder'].y = 605;
-		phonePage.addChild(imgLib['sim_holder']);		
-		imgLib['sim'].x = 96;
-		imgLib['sim'].y = 86;
-		imgLib['sim'].onPress = dragSim;
-		phonePage.addChild(imgLib['sim']);
-		
-		phonePage.addChild(imgLib['phone_red']);
-
-		var circle = new createjs.Graphics(); 
-		//circle.beginFill("green");
-		circle.drawCircle(0, 0, 90); 
-		phoneRedMask = new createjs.Shape(circle);
-		phoneRedMask.onPress = dragMe;
-		phoneRedMask.x = 302;
-		phoneRedMask.y = 682;
-		phonePage.addChild(phoneRedMask);
-
-		imgLib['phone_red'].mask = phoneRedMask;
-	
-
-		gameHolder.addChild(phonePage);
+		//createjs.Touch.enable(stage);
 
 
 
 
 
 
-		introPage = new createjs.Container();
-		introPage.addChild(imgLib['view_start']);
+
+
+		crackHolder = new createjs.Container();
+		imgLib['view_tap'].alpha = 0;
+		crackHolder.addChild(imgLib['view_tap']);
+
 		imgLib['logo_white'].y = 500;
-		introPage.addChild(imgLib['logo_white']);
-		introPage.onPress = startGame;
-		gameHolder.addChild(introPage);
+		crackHolder.addChild(imgLib['logo_white']);
+
+		crackHolder.onPress = makeCrack;
+		gameHolder.addChild(crackHolder);	
+
+		imgLib['btn_fix'].onPress = gameOver;
+		imgLib['btn_fix'].y = 530;
+		imgLib['btn_fix'].x = 200;
+		imgLib['btn_fix'].visible = false;
+		gameHolder.addChild(imgLib['btn_fix']);
 
 
+		imgLib['view_start'].onPress = startGame;
+		gameHolder.addChild(imgLib['view_start']);
+		
 
+		imgLib['logo'].y = 500;
+		gameHolder.addChild(imgLib['logo']);
+
+
+		imgLib['view_end'].visible = false;
+		imgLib['view_end'].alpha = 0;
+		imgLib['view_end'].onPress = openFinalLink;
+		gameHolder.addChild(imgLib['view_end']);
 
 
 
@@ -272,15 +258,45 @@ var AM_Game = function(){
 	function startGame(e){
 		preloadAudio(e);
 
-		createjs.Tween.get(introPage).to({alpha:0},400)
+		createjs.Tween.get(imgLib['view_start']).to({alpha:0},400)
 			.call(function(){
-				gameHolder.removeChild(introPage);
+				gameHolder.removeChild(imgLib['view_start']);
 			});
+		createjs.Tween.get(imgLib['logo']).to({alpha:0},400)
+			.call(function(){
+				gameHolder.removeChild(imgLib['logo']);
+			});
+
+		createjs.Tween.get(imgLib['view_tap']).to({alpha:1},1000);
+		createjs.Tween.get(imgLib['logo_white']).to({alpha:1},1000);
 		
 	}
 
 
+	var currentCrackSound = 1;
 
+	function makeCrack(evt){
+		var x = evt.stageX;
+		var y = evt.stageY;
+		console.log(evt);
+
+		playEffect("crack");
+		if (currentCrackSound === 1) currentCrackSound = 2;
+			else currentCrackSound = 1;
+
+		var newCrack = imgLib['crack'].clone();
+		newCrack.x = x;
+		newCrack.y = y;
+		newCrack.regX = 440;
+		newCrack.regY = 440;
+		newCrack.rotation = randomNumberBetween(0, 360);
+		crackHolder.addChild(newCrack);
+
+		if (!imgLib['btn_fix'].visible){
+			imgLib['btn_fix'].visible = true;
+			imgLib['logo_white'].visible = false;
+		}
+	}
 
 
 	function randomNumberBetween(min, max){
@@ -288,116 +304,30 @@ var AM_Game = function(){
 	}
 
 
+	function gameOver(){
 
+		createjs.Tween.get(crackHolder)
+			.to({alpha:0},400)
+			.call(function(){
+				crackHolder.visible = false;
+			});
+
+
+		imgLib['view_end'].visible = true;
+		createjs.Tween.get(imgLib['view_end']).to({alpha:1},1000);
+
+		setTimeout(function(){
+			console.log('open:' + FINAL_URL);
+			openFinalLink();
+		}, 3000);
+	}
 
 	function openFinalLink(){
 		console.log('openFinalLink');
 		window.open(FINAL_URL);
 	}
 
-	function dragMe(evt){
-		var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
-		evt.onMouseMove = function(ev) {
-			var offsetX = ev.stageX+offset.x;
-			var offsetY = ev.stageY+offset.y;
-			ev.target.x = offsetX;
-			ev.target.y = offsetY;
-			console.log("evt.target.id:" + evt.target.id + ", x:" +  offsetX + ", y:" + offsetY);
-		}
-	}
-
-	function dragSim(evt){
-		
-		var shadow = new createjs.Shadow("#000000", 0, 0, 10);
-		imgLib['sim'].shadow = shadow;
-
-		var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
-		evt.onMouseMove = function(ev) {
-			var offsetX = ev.stageX+offset.x;
-			var offsetY = ev.stageY+offset.y;
-
-			var winRangeX = 50;
-			var winRangeY = 10;
-			var winX = 338;
-			var winY = 619;
-			if (offsetX < (winX + winRangeX) && offsetX > (winX - winRangeX) && offsetY < (winY + winRangeY) && offsetY > (winY - winRangeY) ){
-				
-				imgLib['sim'].onPress = null;
-
-				createjs.Tween.get(imgLib['txt_drag_sim'])
-					.to({alpha:0},500)
-				;
-
-				createjs.Tween.get(imgLib['sim'])
-					.to({x:winX,y:winY},500,createjs.Ease.quadInOut)
-					.call(function(){
-						phonePage.removeChild(imgLib['sim_holder']);
-						phonePage.addChild(imgLib['sim_holder']);
-					})
-					.wait(400)
-					.to({x:winX-136},700,createjs.Ease.quadInOut)
-					.call(function(){
-						var newMaskScale = 6;
-						createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},1000, createjs.Ease.quadInOut);
-						//createjs.Tween.get(phonePage).to({y:-200},200, createjs.Ease.quadInOut);
-					})
-					.wait(3000)
-					.call(gameOver)
-				;
-			} 
-
-			ev.target.x = offsetX;
-			ev.target.y = offsetY;
-			//console.log("evt.target.id:" + evt.target.id + ", x:" +  offsetX + ", y:" + offsetY);
-		}
-
-		evt.onMouseUp = function(ev) {
-			imgLib['sim'].shadow = null;
-
-		}
-	}
-
-
-	function gameOver(){
-
-		console.log('gameOver');
-		imgLib['view_end'].alpha = 0;
-		imgLib['view_end'].onPress = openFinalLink;
-
-		gameHolder.addChild(imgLib['view_end']);
-
-		createjs.Tween.get(imgLib['view_end']).to({alpha:1},1000);
 	
-	}
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	function cloudPress(evt){
 		console.log('cloudPress');
 		if (firstTouch){
