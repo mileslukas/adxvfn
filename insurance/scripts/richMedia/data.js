@@ -19,7 +19,7 @@ var admaxim_ad =
 				 	'title':'page1',
 				 	'track':'page_1_view',
 					'track2'	: ' ',
-				 	'background':'',
+				 	'background':'media/bg.png',
 					"html"   	:
 					[
 						{

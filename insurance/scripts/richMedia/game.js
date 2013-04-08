@@ -19,6 +19,7 @@ var AM_Game = function(){
 	var loadBar;
 	var loadBarHolder;
 	var gameHolder;	
+	var startBtn;
 
 	var moduleLoaded = false;
 	var crackHolder;
@@ -72,7 +73,8 @@ var AM_Game = function(){
 			createjs.Ticker.addListener(stage);
 			createjs.Ticker.setFPS(16);
 		
-			setUpGame();
+			buildStartBtn();
+			//setUpGame();
 		} else {
 			setTimeout(function(){
 				setUpCanvas();
@@ -80,6 +82,27 @@ var AM_Game = function(){
 			
 			console.log('createjs undefined');
 		}
+	}
+
+	function buildStartBtn(){
+		var startGraphic = new createjs.Graphics();
+		startGraphic.beginFill('green');
+		startGraphic.drawRect(0, 0, 768, 1200);
+		startBtn = new createjs.Shape(startGraphic);
+		startBtn.alpha = 0.01;
+		startBtn.onPress = setUpGame;
+		stage.addChild(startBtn);
+		
+
+		createjs.Touch.enable(stage);
+
+		
+
+		/*
+		startBtn = new createjs.Shape();
+		startBtn.hitArea = new createjs.Shape(new createjs.Graphics().beginFill("#f00").drawRect(0,0,768,1200));
+		startBtn.onPress = setUpGame;
+		*/
 	}
 
 	
@@ -254,7 +277,7 @@ var AM_Game = function(){
 		//imgLib['btn_terms'].onPress = function(){window.open(BRAND_TERMS_URL)};
 
 
-		createjs.Touch.enable(stage);
+		//createjs.Touch.enable(stage);
 
 		stage.addChild(gameHolder);
 	}
