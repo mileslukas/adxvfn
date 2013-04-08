@@ -45,7 +45,7 @@ var AM_Game = function(){
 	var TRACKS = [
 		{name:'press_sim', start:0, end:.9},
 		{name:'release_sim', start:1, end:1.9},
-		{name:'win', start:2, end:4}
+		{name:'win', start:2, end:5}
 	];
 
 	var firstTouch = true;
@@ -73,7 +73,9 @@ var AM_Game = function(){
 			createjs.Ticker.addListener(stage);
 			createjs.Ticker.setFPS(16);
 		
-			setUpGame();
+			//setUpGame();
+
+			buildStartBtn();
 		} else {
 			setTimeout(function(){
 				setUpCanvas();
@@ -83,8 +85,22 @@ var AM_Game = function(){
 		}
 	}
 
+	function buildStartBtn(){
+		var startGraphic = new createjs.Graphics();
+		startGraphic.beginFill('green');
+		startGraphic.drawRect(0, 0, 768, 1200);
+		startBtn = new createjs.Shape(startGraphic);
+		startBtn.alpha = 0.01;
+		startBtn.onPress = setUpGame;
+		stage.addChild(startBtn);
+		
+		createjs.Touch.enable(stage);
+	}
 	
-	function setUpGame(){
+	function setUpGame(e){
+		stage.removeChild(startBtn);
+		preloadAudio(e);
+
 		admaxim_ad_experience.trackEvent('game_load_start');
 		buildPreloader();
 
@@ -161,7 +177,7 @@ var AM_Game = function(){
 		loadBar.scaleX = 0;
 		
 		loadBarHolder.x = 90 * newScale;
-		loadBarHolder.y = 130 * newScale;
+		loadBarHolder.y = 260;
 		loadBarHolder.scaleX = loadBarHolder.scaleY = newScale;
 
 
@@ -242,12 +258,12 @@ var AM_Game = function(){
 
 
 
-		introPage = new createjs.Container();
-		introPage.addChild(imgLib['view_start']);
-		imgLib['logo_white'].y = 500;
-		introPage.addChild(imgLib['logo_white']);
-		introPage.onPress = startGame;
-		gameHolder.addChild(introPage);
+		//introPage = new createjs.Container();
+		//introPage.addChild(imgLib['view_start']);
+		//imgLib['logo_white'].y = 500;
+		//introPage.addChild(imgLib['logo_white']);
+		//introPage.onPress = startGame;
+		//gameHolder.addChild(introPage);
 
 
 
@@ -265,13 +281,13 @@ var AM_Game = function(){
 		//imgLib['btn_terms'].onPress = function(){window.open(BRAND_TERMS_URL)};
 
 
-		createjs.Touch.enable(stage);
+		//createjs.Touch.enable(stage);
 
 		stage.addChild(gameHolder);
 	}
 
 	function startGame(e){
-		preloadAudio(e);
+		//preloadAudio(e);
 
 		createjs.Tween.get(introPage).to({alpha:0},400)
 			.call(function(){
@@ -307,56 +323,62 @@ var AM_Game = function(){
 		}
 	}
 
+	var won = false;
+
 	function dragSim(evt){
-		playEffect('press_sim');
-		var shadow = new createjs.Shadow("#000000", 0, 0, 10);
-		imgLib['sim'].shadow = shadow;
+		if (!won){
+			playEffect('press_sim');
+			var shadow = new createjs.Shadow("#000000", 0, 0, 10);
+			imgLib['sim'].shadow = shadow;
 
-		var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
-		evt.onMouseMove = function(ev) {
-			var offsetX = ev.stageX+offset.x;
-			var offsetY = ev.stageY+offset.y;
+			var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
+			evt.onMouseMove = function(ev) {
+				var offsetX = ev.stageX+offset.x;
+				var offsetY = ev.stageY+offset.y;
 
-			var winRangeX = 50;
-			var winRangeY = 10;
-			var winX = 338;
-			var winY = 619;
-			if (offsetX < (winX + winRangeX) && offsetX > (winX - winRangeX) && offsetY < (winY + winRangeY) && offsetY > (winY - winRangeY) ){
-				
-				imgLib['sim'].onPress = null;
+				var winRangeX = 50;
+				var winRangeY = 10;
+				var winX = 338;
+				var winY = 619;
+				if (offsetX < (winX + winRangeX) && offsetX > (winX - winRangeX) && offsetY < (winY + winRangeY) && offsetY > (winY - winRangeY) ){
+					won = true;
+					imgLib['sim'].onPress = null;
 
-				createjs.Tween.get(imgLib['txt_drag_sim'])
-					.to({alpha:0},500)
-				;
+					createjs.Tween.get(imgLib['txt_drag_sim'])
+						.to({alpha:0},500)
+					;
 
-				createjs.Tween.get(imgLib['sim'])
-					.to({x:winX,y:winY},500,createjs.Ease.quadInOut)
-					.call(function(){
-						phonePage.removeChild(imgLib['sim_holder']);
-						phonePage.addChild(imgLib['sim_holder']);
-						playEffect('win');
-					})
-					.wait(400)
-					.to({x:winX-136},700,createjs.Ease.quadInOut)
-					.call(function(){
-						var newMaskScale = 6;
-						createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},2000, createjs.Ease.quadInOut);
-						//createjs.Tween.get(phonePage).to({y:-200},200, createjs.Ease.quadInOut);
-					})
-					.wait(4000)
-					.call(gameOver)
-				;
-			} 
+					createjs.Tween.get(imgLib['sim'])
+						.to({x:winX,y:winY},500,createjs.Ease.quadInOut)
+						.call(function(){
+							phonePage.removeChild(imgLib['sim_holder']);
+							phonePage.addChild(imgLib['sim_holder']);
+							playEffect('win');
+						})
+						.wait(400)
+						.to({x:winX-136},700,createjs.Ease.quadInOut)
+						.call(function(){
+							var newMaskScale = 6;
+							createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},2000, createjs.Ease.quadInOut);
+							//createjs.Tween.get(phonePage).to({y:-200},200, createjs.Ease.quadInOut);
+						})
+						.wait(4000)
+						.call(gameOver)
+					;
+				} 
 
-			ev.target.x = offsetX;
-			ev.target.y = offsetY;
-			//console.log("evt.target.id:" + evt.target.id + ", x:" +  offsetX + ", y:" + offsetY);
-		}
+				ev.target.x = offsetX;
+				ev.target.y = offsetY;
+				//console.log("evt.target.id:" + evt.target.id + ", x:" +  offsetX + ", y:" + offsetY);
+			}
 
-		evt.onMouseUp = function(ev) {
-			imgLib['sim'].shadow = null;
-			playEffect('release_sim');
+			evt.onMouseUp = function(ev) {
+				if (!won){
+					imgLib['sim'].shadow = null;
+					playEffect('release_sim');
+				}
 
+			}
 		}
 	}
 
