@@ -304,11 +304,11 @@ var AdMaximAdExperience = function() {
 			$(divNames[i]).css({'margin':'0px','padding':'0px','position':'absolute'});
 		}
 		
-		if (expand === 'yes'){
-			ad_wrapperTop = 0;
-		} else {
+		//if (expand === 'yes'){
+			//ad_wrapperTop = 0;
+		//} else {
 			ad_wrapperTop = -viewableHeight;
-		}
+		//}
 		
 		$('#ad_wrapper').css({
 			'width':ad_width+'px',

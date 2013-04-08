@@ -106,7 +106,9 @@ var AM_Game = function(){
 	}
 
 	
-	function setUpGame(){
+	function setUpGame(e){
+		preloadAudio(e);
+
 		admaxim_ad_experience.trackEvent('game_load_start');
 		buildPreloader();
 
@@ -183,7 +185,7 @@ var AM_Game = function(){
 		loadBar.scaleX = 0;
 		
 		loadBarHolder.x = 90 * newScale;
-		loadBarHolder.y = 130 * newScale;
+		loadBarHolder.y = 260;
 		loadBarHolder.scaleX = loadBarHolder.scaleY = newScale;
 
 
@@ -235,7 +237,7 @@ var AM_Game = function(){
 
 
 		crackHolder = new createjs.Container();
-		imgLib['view_tap'].alpha = 0;
+		//imgLib['view_tap'].alpha = 0;
 		crackHolder.addChild(imgLib['view_tap']);
 
 		imgLib['logo_white'].y = 500;
@@ -251,12 +253,12 @@ var AM_Game = function(){
 		gameHolder.addChild(imgLib['btn_fix']);
 
 
-		imgLib['view_start'].onPress = startGame;
-		gameHolder.addChild(imgLib['view_start']);
+		//imgLib['view_start'].onPress = startGame;
+		//gameHolder.addChild(imgLib['view_start']);
 		
 
-		imgLib['logo'].y = 500;
-		gameHolder.addChild(imgLib['logo']);
+		//imgLib['logo'].y = 500;
+		//gameHolder.addChild(imgLib['logo']);
 
 
 		imgLib['view_end'].visible = false;
@@ -283,7 +285,7 @@ var AM_Game = function(){
 	}
 
 	function startGame(e){
-		preloadAudio(e);
+		//preloadAudio(e);
 
 		createjs.Tween.get(imgLib['view_start']).to({alpha:0},400)
 			.call(function(){
