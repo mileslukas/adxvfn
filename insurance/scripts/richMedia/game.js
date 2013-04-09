@@ -6,7 +6,7 @@ var AM_Game = function(){
 	var ADMAXIM_GAME_WIDTH = 320;
 	var ADMAXIM_GAME_HEIGHT = 500;
 
-	var FINAL_URL = "http://www.vodafone.hu";
+	var FINAL_URL = "http://m.vodafone.hu/mobiltarifak/red";
 
 	var newScale = 2.4;
 	var oldScale = .417;

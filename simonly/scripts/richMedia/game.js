@@ -6,7 +6,7 @@ var AM_Game = function(){
 	var ADMAXIM_GAME_WIDTH = 320;
 	var ADMAXIM_GAME_HEIGHT = 500;
 
-	var FINAL_URL = "http://www.vodafone.hu";
+	var FINAL_URL = "http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red";
 
 	var newScale = 2.4;
 	var oldScale = .417;
@@ -235,6 +235,8 @@ var AM_Game = function(){
 		imgLib['sim'].x = 96;
 		imgLib['sim'].y = 86;
 		imgLib['sim'].onPress = dragSim;
+		var shadow = new createjs.Shadow("#000000", 0, 0, 10);
+		imgLib['sim'].shadow = shadow;
 		phonePage.addChild(imgLib['sim']);
 		
 		phonePage.addChild(imgLib['phone_red']);
@@ -328,7 +330,7 @@ var AM_Game = function(){
 	function dragSim(evt){
 		if (!won){
 			playEffect('press_sim');
-			var shadow = new createjs.Shadow("#000000", 0, 0, 10);
+			var shadow = new createjs.Shadow("#000000", 0, 0, 20);
 			imgLib['sim'].shadow = shadow;
 
 			var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
@@ -374,7 +376,9 @@ var AM_Game = function(){
 
 			evt.onMouseUp = function(ev) {
 				if (!won){
-					imgLib['sim'].shadow = null;
+					//imgLib['sim'].shadow = null;
+					var shadow = new createjs.Shadow("#000000", 0, 0, 10);
+					imgLib['sim'].shadow = shadow;
 					playEffect('release_sim');
 				}
 
