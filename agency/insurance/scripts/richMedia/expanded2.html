@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5 Template</title>
+	<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<meta name="viewport" content="width=320">
+</head>
+<body>
+
+<style type="text/css">
+	body{margin:0; padding:0;}	
+	#end_frame{display:none;}
+
+</style>
+
+<script>
+
+$(function() {
+
+	var page_scale = (320/768);
+
+	$('#wrapper').css({'position':'absolute', 'width':'768px', 'height':'1200px',
+		'transform-origin':'0% 0%',
+		'-ms-transform-origin':'0% 0%',
+		'-webkit-transform-origin':'0% 0%',
+		'-moz-transform-origin':'0% 0%',
+		'-o-transform-origin':'0% 0%',
+		'transform': 'scale('+page_scale+','+page_scale+')',
+		'-ms-transform': 'scale('+page_scale+','+page_scale+')',
+		'-webkit-transform': 'scale('+page_scale+','+page_scale+')',
+		'-o-transform': 'scale('+page_scale+','+page_scale+')',
+		'-moz-transform': 'scale('+page_scale+','+page_scale+')',
+		'-ms-transform': 'scale('+page_scale+','+page_scale+')'
+	});
+
+	$('#end_frame').click(function(){
+		console.log('$(#end_frame).click');
+		window.open('http://admaxim.com');
+
+	});
+
+	setTimeout(function(){
+		$('#crack').hide();
+		$('#end_frame').show();
+	}, 3000);
+
+});
+
+</script>
+
+
+<div id='wrapper'>
+
+	<img id="crack" src="media/crack.png" />
+	<img id="end_frame" src="media/end.jpg" />
+
+</div>
+
+
+</body>
+</html>

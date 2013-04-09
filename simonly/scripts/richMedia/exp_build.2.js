@@ -35,7 +35,7 @@ var Exp_Shell = function(){
 	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId;
 
 
-	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : "scripts/richMedia/media/banner.jpg";
+	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : "scripts/richMedia/media/vodafonesimonlybanner.gif";
 
 	//var closeBtnUrl = assetUrl + "btnClose.png";
 

@@ -32,7 +32,7 @@ var Exp_Shell = function(){
 	}
 	console.log("assetUrl:" + assetUrl);
 
-	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId;
+	var iframeUrl = assetUrl + "scripts/richMedia/expanded2.html?clickid=" + clickId + "&appid=" + appId;
 
 
 	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : "scripts/richMedia/media/vodafoneinsurancebanner.gif";
