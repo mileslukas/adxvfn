@@ -311,6 +311,7 @@ var AM_Game = function(){
 
 	function openFinalLink(){
 		console.log('openFinalLink');
+		admaxim_ad_experience.trackEvent('click_to_vodafone');
 		window.open(FINAL_URL);
 	}
 
@@ -329,6 +330,7 @@ var AM_Game = function(){
 
 	function dragSim(evt){
 		if (!won){
+			admaxim_ad_experience.trackEvent('click_sim');
 			playEffect('press_sim');
 			var shadow = new createjs.Shadow("#000000", 0, 0, 20);
 			imgLib['sim'].shadow = shadow;
@@ -342,8 +344,9 @@ var AM_Game = function(){
 				var winRangeY = 10;
 				var winX = 338;
 				var winY = 619;
-				if (offsetX < (winX + winRangeX) && offsetX > (winX - winRangeX) && offsetY < (winY + winRangeY) && offsetY > (winY - winRangeY) ){
+				if (offsetX < (winX + winRangeX) && offsetX > (winX - winRangeX) && offsetY < (winY + winRangeY) && offsetY > (winY - winRangeY) && !won){
 					won = true;
+					admaxim_ad_experience.trackEvent('game_over');
 					imgLib['sim'].onPress = null;
 
 					createjs.Tween.get(imgLib['txt_drag_sim'])
@@ -388,7 +391,7 @@ var AM_Game = function(){
 
 
 	function gameOver(){
-
+		admaxim_ad_experience.trackEvent('show_last_page');
 		console.log('gameOver');
 		imgLib['view_end'].alpha = 0;
 		imgLib['view_end'].onPress = openFinalLink;
@@ -428,71 +431,6 @@ var AM_Game = function(){
 
 
 
-	function cloudPress(evt){
-		console.log('cloudPress');
-		if (firstTouch){
-			createjs.Tween.get(imgLib['txt_drag']).to({alpha:0},1000);
-
-			firstTouch = false;
-		}
-
-
-		var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
-		evt.onMouseMove = function(ev) {
-			var offsetX = ev.stageX+offset.x;
-			var offsetY = ev.stageY+offset.y;
-			ev.target.x = offsetX;
-			ev.target.y = offsetY;
-			//console.log("evt.target.id:" + evt.target.id + ", x:" +  offsetX + ", y:" + offsetY);
-		}
-
-		evt.onMouseUp = function(ev) {
-			console.log("UP " + evt.target.id);
-
-			if (imgLib[evt.target.id].active){
-				imgLib[evt.target.id].active = false;
-				
-				createjs.Tween.get(imgLib[evt.target.id])
-					.to({
-						x:cloudCorr[evt.target.id].endX * newScale,
-						y:cloudCorr[evt.target.id].endY * newScale
-					},2200,createjs.Ease.quadInOut);
-			} else {
-				console.log('cloud no longer active');
-			}
-
-			if (!imgLib['cloud1'].active && !imgLib['cloud2'].active && !imgLib['cloud3'].active){
-				
-				createjs.Touch.disable(stage);
-
-				var speed = 1200;
-				/*
-				createjs.Tween.get(imgLib['cloud1'])
-					.to({alpha:0},speed);
-
-				createjs.Tween.get(imgLib['cloud2'])
-					.to({alpha:0},speed);
-
-				createjs.Tween.get(imgLib['cloud3'])
-					.to({alpha:0},speed);*/
-
-				createjs.Tween.get(imgLib['sun'])
-					.to({alpha:0},speed);
-
-				createjs.Tween.get(imgLib['roundel'])
-					.to({alpha:1},speed);
-
-				createjs.Tween.get(imgLib['btn_terms'])
-					.to({alpha:1},speed);
-
-				createjs.Tween.get(imgLib['btn_offer'])
-					.to({alpha:1},speed);
-
-				admaxim_ad_experience.trackEvent('game_won');
-					
-			}
-		}
-	}
 
 
 

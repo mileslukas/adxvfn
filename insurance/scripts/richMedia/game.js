@@ -111,6 +111,7 @@ var AM_Game = function(){
 		stage.removeChild(startBtn);
 
 		admaxim_ad_experience.trackEvent('game_load_start');
+
 		buildPreloader();
 
 	    //var preload = new createjs.PreloadJS();
@@ -220,13 +221,15 @@ var AM_Game = function(){
 	function allImagesLoaded(){
 		console.log('allImagesLoaded');
 		gameHolder.alpha = 1;
-		admaxim_ad_experience.trackEvent('game_load_complete');
 		buildGame();
 	}
 
 
 	function buildGame(){
 		console.log('buildGame');
+
+		admaxim_ad_experience.trackEvent('game_load_complete');
+
 		console.log(imgLib);
 		//createjs.Touch.enable(stage);
 
@@ -285,6 +288,7 @@ var AM_Game = function(){
 		stage.addChild(gameHolder);
 	}
 
+	/*
 	function startGame(e){
 		//preloadAudio(e);
 
@@ -300,12 +304,14 @@ var AM_Game = function(){
 		createjs.Tween.get(imgLib['view_tap']).to({alpha:1},1000);
 		createjs.Tween.get(imgLib['logo_white']).to({alpha:1},1000);
 		
-	}
+	}*/
 
 
 	var currentCrackSound = 1;
 
 	function makeCrack(evt){
+		admaxim_ad_experience.trackEvent('screen_crack');
+		
 		var x = evt.stageX;
 		var y = evt.stageY;
 		console.log(evt);
@@ -337,6 +343,8 @@ var AM_Game = function(){
 
 	function gameOver(){
 
+		admaxim_ad_experience.trackEvent('game_over');
+
 		createjs.Tween.get(crackHolder)
 			.to({alpha:0},400)
 			.call(function(){
@@ -349,85 +357,17 @@ var AM_Game = function(){
 		imgLib['view_end'].alpha = 1;
 
 		setTimeout(function(){
-			console.log('open:' + FINAL_URL);
 			openFinalLink();
 		}, 3000);
 	}
 
 	function openFinalLink(){
+		admaxim_ad_experience.trackEvent('click_to_vodafone');
 		console.log('openFinalLink');
 		window.open(FINAL_URL);
 	}
 
 	
-	function cloudPress(evt){
-		console.log('cloudPress');
-		if (firstTouch){
-			createjs.Tween.get(imgLib['txt_drag']).to({alpha:0},1000);
-
-			firstTouch = false;
-		}
-
-
-		var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
-		evt.onMouseMove = function(ev) {
-			var offsetX = ev.stageX+offset.x;
-			var offsetY = ev.stageY+offset.y;
-			ev.target.x = offsetX;
-			ev.target.y = offsetY;
-			//console.log("evt.target.id:" + evt.target.id + ", x:" +  offsetX + ", y:" + offsetY);
-		}
-
-		evt.onMouseUp = function(ev) {
-			console.log("UP " + evt.target.id);
-
-			if (imgLib[evt.target.id].active){
-				imgLib[evt.target.id].active = false;
-				
-				createjs.Tween.get(imgLib[evt.target.id])
-					.to({
-						x:cloudCorr[evt.target.id].endX * newScale,
-						y:cloudCorr[evt.target.id].endY * newScale
-					},2200,createjs.Ease.quadInOut);
-			} else {
-				console.log('cloud no longer active');
-			}
-
-			if (!imgLib['cloud1'].active && !imgLib['cloud2'].active && !imgLib['cloud3'].active){
-				
-				createjs.Touch.disable(stage);
-
-				var speed = 1200;
-				/*
-				createjs.Tween.get(imgLib['cloud1'])
-					.to({alpha:0},speed);
-
-				createjs.Tween.get(imgLib['cloud2'])
-					.to({alpha:0},speed);
-
-				createjs.Tween.get(imgLib['cloud3'])
-					.to({alpha:0},speed);*/
-
-				createjs.Tween.get(imgLib['sun'])
-					.to({alpha:0},speed);
-
-				createjs.Tween.get(imgLib['roundel'])
-					.to({alpha:1},speed);
-
-				createjs.Tween.get(imgLib['btn_terms'])
-					.to({alpha:1},speed);
-
-				createjs.Tween.get(imgLib['btn_offer'])
-					.to({alpha:1},speed);
-
-				admaxim_ad_experience.trackEvent('game_won');
-					
-			}
-		}
-	}
-
-
-
 
 	
 	function monitorTrack(effectName){

@@ -2,8 +2,8 @@ var admaxim_ad =
 {
 	"resources":
 	{
-		"adid"				: "ad_template_id",
-		"adgroupid"			: "ad_template_group",
+		"adid"				: "vodafone_admaxim_insurance",
+		"adgroupid"			: "vodafone_admaxim",
 		"showhotspots"		: "no",
 		"enabletracking"	: "no",
 		"startingpage"		: "0",

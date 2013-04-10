@@ -1344,6 +1344,8 @@ var AdMaximAdExperience = function() {
 
 
 		} else {
+			console.log("NOT TRACKING " + eventAction);
+
 			//console.log("NO track - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 
 		}
