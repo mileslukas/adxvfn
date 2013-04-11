@@ -52,11 +52,19 @@ $(function() {
 
 	});
 
+
+	$('#crack').click(function(){
+		console.log('crack click');
+		$('#crack').hide();
+		$('#end_frame').show();	
+	});
+
+
 	setTimeout(function(){
 		$('#crack').hide();
 		$('#end_frame').show();
 		trackEvent('show_endframe');
-	}, 3000);
+	}, 2000);
 
 
 	function trackEvent (event_description) {

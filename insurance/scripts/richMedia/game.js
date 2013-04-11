@@ -25,15 +25,14 @@ var AM_Game = function(){
 	var crackHolder;
 
  	var MANIFEST = [
-		{src:"media/game/logo.png", id:"logo"},
+ 		{src:"media/game/close_btn_white.png", id:"close_btn_white"},
 		{src:"media/game/logo_white.png", id:"logo_white"},
-		{src:"media/game/view_start.png", id:"view_start"},
-		{src:"media/game/view_tap.png", id:"view_tap"},
-		{src:"media/game/view_end.png", id:"view_end"},
+		{src:"media/game/view_tap_hg.png", id:"view_tap"},
+		{src:"media/game/view_end_hg.png", id:"view_end"},
 		{src:"media/game/crack1.png", id:"crack1"},
 		{src:"media/game/crack2.png", id:"crack2"},
 		{src:"media/game/crack3.png", id:"crack3"},
-		{src:"media/game/btn_fix.png", id:"btn_fix"}
+		{src:"media/game/btn_fix_hg.png", id:"btn_fix"}
 	];
 
 
@@ -41,7 +40,7 @@ var AM_Game = function(){
 	var trackDic = {};
 	var trackPlaying = false;
 	var audioLoaded = false;
-	var MP3_URL = "media/game/glass_track.mp3";
+	var MP3_URL = "media/game/glass_track2.mp3";
 	var TRACKS = [
 		{name:'crack1', start:0, end:.9},
 		{name:'crack2', start:1, end:1.9},
@@ -252,7 +251,7 @@ var AM_Game = function(){
 
 		imgLib['btn_fix'].onPress = gameOver;
 		imgLib['btn_fix'].y = 530;
-		imgLib['btn_fix'].x = 200;
+		imgLib['btn_fix'].x = 80;
 		imgLib['btn_fix'].visible = false;
 		gameHolder.addChild(imgLib['btn_fix']);
 
@@ -272,9 +271,9 @@ var AM_Game = function(){
 
 
 
+		imgLib['close_btn_white'].x = 661;
 
-
-
+		gameHolder.addChild(imgLib['close_btn_white']);
 
 
 

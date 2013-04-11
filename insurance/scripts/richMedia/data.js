@@ -5,7 +5,7 @@ var admaxim_ad =
 		"adid"				: "vodafone_admaxim_insurance",
 		"adgroupid"			: "vodafone_admaxim",
 		"showhotspots"		: "no",
-		"enabletracking"	: "no",
+		"enabletracking"	: "yes",
 		"startingpage"		: "0",
 		"usemenu"			: "no",
 		"width"				: "320",
@@ -19,7 +19,7 @@ var admaxim_ad =
 				 	'title':'page1',
 				 	'track':'page_1_view',
 					'track2'	: ' ',
-				 	'background':'media/bg.png',
+				 	'background':'media/game/view_start_hg.png',
 					"html"   	:
 					[
 						{

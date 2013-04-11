@@ -4,8 +4,8 @@
 
 var Exp_Shell = function(){
 
-	var expandable = isStandalone;
-	console.log("expandable:" + expandable);
+	var expanded = (typeof isStandalone === "undefined" && isStandalone) ? true : false ;
+	console.log("expanded:" + expanded);
 
 
 	var adBannerW = (ADMAXIM_BannerWidth != undefined) ? ADMAXIM_BannerWidth : ADMAXIM_BANNER_W;
@@ -44,7 +44,7 @@ var Exp_Shell = function(){
 	var adLoaded = false;
 
 	var bannerStr = "";
-	if (!expandable) bannerStr += "<img id=\"adBanner\" onclick='exp_shell.bannerClick()' src=\""+adBanner+"\" style=\"display:block; width:"+adBannerW+"px; height:"+adBannerH+"px; \" \/>";
+	if (!expanded) bannerStr += "<img id=\"adBanner\" onclick='exp_shell.bannerClick()' src=\""+adBanner+"\" style=\"display:block; width:"+adBannerW+"px; height:"+adBannerH+"px; \" \/>";
 	bannerStr += "<img id=\"AdMaximTrack\" style=\"display:block; margin:-1px 0 0 -1px; padding:0; width:1px; height:1px\" \/>";
 	var iframeStr = "<iframe id='adFrame' scrolling='no' src='' width='0' height='0' style='border:none; position:absolute; top:0; left:0;'></iframe>";
 	var expandedExp;
@@ -74,7 +74,7 @@ var Exp_Shell = function(){
 
 
 		
-		if (!expandable){
+		if (!expanded){
 			var closeBtn = document.createElement('div');
 			closeBtn.setAttribute('onclick', 'exp_shell.closeBtnClick()');
 			closeBtn.style.width = adBannerH + "px";

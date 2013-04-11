@@ -41,7 +41,7 @@ var AM_Game = function(){
 	var trackDic = {};
 	var trackPlaying = false;
 	var audioLoaded = false;
-	var MP3_URL = "media/game/sim_track2.mp3";
+	var MP3_URL = "media/game/sim_track3.mp3";
 	var TRACKS = [
 		{name:'press_sim', start:0, end:.9},
 		{name:'release_sim', start:1, end:1.9},
@@ -339,10 +339,11 @@ var AM_Game = function(){
 			evt.onMouseMove = function(ev) {
 				var offsetX = ev.stageX+offset.x;
 				var offsetY = ev.stageY+offset.y;
+				console.log(offsetX);
 
-				var winRangeX = 50;
-				var winRangeY = 10;
-				var winX = 338;
+				var winRangeX = 75;
+				var winRangeY = 30;
+				var winX = 265;
 				var winY = 619;
 				if (offsetX < (winX + winRangeX) && offsetX > (winX - winRangeX) && offsetY < (winY + winRangeY) && offsetY > (winY - winRangeY) && !won){
 					won = true;
@@ -354,14 +355,14 @@ var AM_Game = function(){
 					;
 
 					createjs.Tween.get(imgLib['sim'])
-						.to({x:winX,y:winY},500,createjs.Ease.quadInOut)
+						.to({x:338,y:winY},500,createjs.Ease.quadInOut)
 						.call(function(){
 							phonePage.removeChild(imgLib['sim_holder']);
 							phonePage.addChild(imgLib['sim_holder']);
 							playEffect('win');
 						})
 						.wait(400)
-						.to({x:winX-136},700,createjs.Ease.quadInOut)
+						.to({x:338-136},700,createjs.Ease.quadInOut)
 						.call(function(){
 							var newMaskScale = 6;
 							createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},2000, createjs.Ease.quadInOut);

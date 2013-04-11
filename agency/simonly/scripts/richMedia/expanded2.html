@@ -11,7 +11,7 @@
 <style type="text/css">
 	body{margin:0; padding:0;}
 	#end_frame{margin:0; padding:0; position:absolute; display:none; opacity:0;}
-
+	#close_btn{position:absolute; right:0px}
 </style>
 
 <script>
@@ -79,7 +79,7 @@ $(function() {
 		$('#sim').animate({
 		    top: 130,
 		}, {
-			duration: 1000,
+			duration: 800,
 	    	specialEasing: {
 	      		top: 'easeOutBounce'
 	    	},
@@ -88,7 +88,7 @@ $(function() {
 
 	      		setTimeout(function(){
 	      			$('#end_frame').css({'display':'block'});
-	      			$('#end_frame').animate({opacity:1},{duration:1000});
+	      			$('#end_frame').animate({opacity:1},{duration:800});
 	      			trackEvent('show_endframe');
 	      		}, 500);
 	    	}
@@ -130,8 +130,8 @@ $(function() {
 
 <div id='wrapper'>
 
-	<img id="bg" src="media/bg_grey.jpg" />
-	<img id="card_bg" src="media/card_bg.png" />
+	<img id="bg" src="media/bg_grey2.jpg" />
+	<img id="card_bg" src="media/card_bg2.png" />
 
 	<img id="sim_holder" src="media/sim_holder.png" />
 	<img id="sim" src="media/sim.png" />
@@ -139,8 +139,9 @@ $(function() {
 	<div id="simBtn"></div>
 
 
-	<img id="end_frame" src="media/end.png" />
+	<img id="end_frame" src="media/end2.png" />
 
+	<img id="close_btn" src="media/close_btn.png" />
 </div>
 
 <img id="AdMaximTrack" style="position:absolute; margin:0; padding:0; top:-1; left:-1; height:1px; width:1px" />

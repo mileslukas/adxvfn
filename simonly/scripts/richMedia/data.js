@@ -5,7 +5,7 @@ var admaxim_ad =
 		"adid"				: "vodafone_admaxim_simonly",
 		"adgroupid"			: "vodafone_admaxim",
 		"showhotspots"		: "no",
-		"enabletracking"	: "no",
+		"enabletracking"	: "yes",
 		"startingpage"		: "0",
 		"usemenu"			: "no",
 		"width"				: "320",
