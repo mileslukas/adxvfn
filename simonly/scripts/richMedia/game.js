@@ -24,15 +24,16 @@ var AM_Game = function(){
 	var crackHolder;
 
  	var MANIFEST = [
+ 		{src:"media/game/close_btn_white.png", id:"close_btn_white"},
+		{src:"media/game/close_btn_red.png", id:"close_btn_red"},
 		{src:"media/game/logo.png", id:"logo_red"},
 		{src:"media/game/logo_white.png", id:"logo_white"},
-		{src:"media/game/view_start.png", id:"view_start"},
 		{src:"media/game/sim.png", id:"sim"},
 		{src:"media/game/sim_holder.png", id:"sim_holder"},
-		{src:"media/game/txt_drag_sim.png", id:"txt_drag_sim"},
+		{src:"media/game/txt_drag_sim_hg.png", id:"txt_drag_sim"},
 		{src:"media/game/phone_red2.png", id:"phone_red"},
-		{src:"media/game/view_phone.jpg", id:"view_phone"},
-		{src:"media/game/view_end.png", id:"view_end"}
+		{src:"media/game/view_phone_hg.jpg", id:"view_phone"},
+		{src:"media/game/view_end_hg.png", id:"view_end"}
 	];
 
 
@@ -226,14 +227,14 @@ var AM_Game = function(){
 
 		phonePage = new createjs.Container();
 		phonePage.addChild(imgLib['view_phone']);
-		imgLib['txt_drag_sim'].x = 382;
-		imgLib['txt_drag_sim'].y = 110;
+		imgLib['txt_drag_sim'].x = 310;
+		imgLib['txt_drag_sim'].y = 90;
 		phonePage.addChild(imgLib['txt_drag_sim']);
-		imgLib['sim_holder'].x = 218;
+		imgLib['sim_holder'].x = 200;
 		imgLib['sim_holder'].y = 605;
 		phonePage.addChild(imgLib['sim_holder']);		
-		imgLib['sim'].x = 96;
-		imgLib['sim'].y = 86;
+		imgLib['sim'].x = 30;
+		imgLib['sim'].y = 76;
 		imgLib['sim'].onPress = dragSim;
 		var shadow = new createjs.Shadow("#000000", 0, 0, 10);
 		imgLib['sim'].shadow = shadow;
@@ -368,7 +369,7 @@ var AM_Game = function(){
 							createjs.Tween.get(phoneRedMask).to({scaleX:newMaskScale,scaleY:newMaskScale},2000, createjs.Ease.quadInOut);
 							//createjs.Tween.get(phonePage).to({y:-200},200, createjs.Ease.quadInOut);
 						})
-						.wait(4000)
+						.wait(2000)
 						.call(gameOver)
 					;
 				} 
@@ -394,10 +395,12 @@ var AM_Game = function(){
 	function gameOver(){
 		admaxim_ad_experience.trackEvent('show_last_page');
 		console.log('gameOver');
-		imgLib['view_end'].alpha = 0;
+		//imgLib['view_end'].alpha = 0;
 		imgLib['view_end'].onPress = openFinalLink;
 
 		gameHolder.addChild(imgLib['view_end']);
+		imgLib['close_btn_white'].x = 661;
+		gameHolder.addChild(imgLib['close_btn_white']);
 
 		//createjs.Tween.get(imgLib['view_end']).to({alpha:1},1000);
 		imgLib['view_end'].alpha = 1;
