@@ -118,6 +118,8 @@ var AdMaximAdExperience = function() {
 
 	var isPageLoaded = [];	
 	var youtubePlayers = [];
+
+	var standalone = false;
 	
 
 	this.adConfig = function(){
@@ -305,7 +307,7 @@ var AdMaximAdExperience = function() {
 		}
 		
 		//if (expand === 'yes'){
-		//	ad_wrapperTop = 0;
+			//ad_wrapperTop = 0;
 		//} else {
 			ad_wrapperTop = -viewableHeight;
 		//}
@@ -913,8 +915,20 @@ var AdMaximAdExperience = function() {
 			//loadRestOfBackgrounds();
 			//firstRun = false;
 			//that.trackEvent("firstexpand", "firstexpand2");
-			dropBanner();
+			console.log('isStandalone isStandaloneisStandaloneisStandaloneisStandalone ' + isStandalone);
+			if (typeof isStandalone != "undefined" && isStandalone){
+				$('#ad_wrapper').css({'top':'0px'});
+				that.trackEvent("firstexpand", "firstexpand2");
+				//console.log('YES OH YES');
+			} else {
+				//console.log('NONOONONON OH NO');
+				dropBanner();
+			}
 		}
+
+
+
+
 		
 		setUpVideoTracking();
 		setUpAudioTracking();
@@ -1344,7 +1358,9 @@ var AdMaximAdExperience = function() {
 
 
 		} else {
-			console.log("NO TRACK " + eventAction);
+			console.log("NOT TRACKING " + eventAction);
+
+			//console.log("NO track - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 
 		}
 

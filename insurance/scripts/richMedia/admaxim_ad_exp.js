@@ -118,6 +118,8 @@ var AdMaximAdExperience = function() {
 
 	var isPageLoaded = [];	
 	var youtubePlayers = [];
+
+	var standalone = false;
 	
 
 	this.adConfig = function(){
@@ -913,8 +915,20 @@ var AdMaximAdExperience = function() {
 			//loadRestOfBackgrounds();
 			//firstRun = false;
 			//that.trackEvent("firstexpand", "firstexpand2");
-			dropBanner();
+			console.log('isStandalone isStandaloneisStandaloneisStandaloneisStandalone ' + isStandalone);
+			if (typeof isStandalone != "undefined" && isStandalone){
+				$('#ad_wrapper').css({'top':'0px'});
+				that.trackEvent("firstexpand", "firstexpand2");
+				//console.log('YES OH YES');
+			} else {
+				//console.log('NONOONONON OH NO');
+				dropBanner();
+			}
 		}
+
+
+
+
 		
 		setUpVideoTracking();
 		setUpAudioTracking();

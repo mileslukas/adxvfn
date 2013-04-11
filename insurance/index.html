@@ -21,11 +21,6 @@
 
 
 
-		var ADMAXIM_BANNER_W = 320;
-		var ADMAXIM_BANNER_H = 50;
-
-		var ADMAXIM_RICHMEDIA_W = 320;
-		var ADMAXIM_RICHMEDIA_H = 500;
 
 
 
@@ -38,15 +33,6 @@
 
 
 
-
-		var standalone = getUrlVar('standalone');
-
-		var isStandalone = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes" || typeof standalone != "undefined" && standalone === "yes") ? true : false;
-		
-		function getUrlVar(key){
-			var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
-			return (result && unescape(result[1]) || undefined);
-		}	
 	</script>
     <script type="text/javascript" src="scripts/richMedia/exp.js"></script>
     <div id="AdMaximBanner" style="position:absolute; top:0px; left:0px"></div>

@@ -4,9 +4,13 @@
 
 var Exp_Shell = function(){
 
-	var expandable = isStandalone;
-	console.log("expandable:" + expandable);
 
+
+	var ADMAXIM_BANNER_W = 320;
+	var ADMAXIM_BANNER_H = 50;
+
+	var ADMAXIM_RICHMEDIA_W = 320;
+	var ADMAXIM_RICHMEDIA_H = 500;
 
 	var adBannerW = (ADMAXIM_BannerWidth != undefined) ? ADMAXIM_BannerWidth : ADMAXIM_BANNER_W;
 	var adBannerH = (ADMAXIM_BannerHeight != undefined) ? ADMAXIM_BannerHeight : ADMAXIM_BANNER_H;
@@ -15,10 +19,21 @@ var Exp_Shell = function(){
 	var adExpandH = ADMAXIM_RICHMEDIA_H;
 
 
-	var clickUrl = (ADMAXIM_clickUrl != undefined) ? ADMAXIM_clickUrl  : " ";
-	var clickId = (ADMAXIM_clickId != undefined) ? ADMAXIM_clickId  : " ";
+	var clickUrl = (ADMAXIM_clickUrl != undefined) ? ADMAXIM_clickUrl  : "";
+	var clickId = (ADMAXIM_clickId != undefined) ? ADMAXIM_clickId  : "";
 
 	var appId = (ADMAXIM_appId != undefined) ? ADMAXIM_appId : "";
+
+
+	var standalone = getUrlVar('standalone');
+
+	var expanded = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes" || typeof standalone != "undefined" && standalone === "yes") ? true : false;
+
+
+	function getUrlVar(key){
+		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+		return (result && unescape(result[1]) || undefined);
+	}	
 
 
 	//var assetRoot = (ADMAXIM_assetRoot != undefined) ? ADMAXIM_assetRoot : undefined;
@@ -32,7 +47,7 @@ var Exp_Shell = function(){
 	}
 	console.log("assetUrl:" + assetUrl);
 
-	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId;
+	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId + "&standalone=" + standalone;
 
 
 	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : "scripts/richMedia/media/vodafonesimonlybanner.gif";
@@ -44,7 +59,7 @@ var Exp_Shell = function(){
 	var adLoaded = false;
 
 	var bannerStr = "";
-	if (!expandable) bannerStr += "<img id=\"adBanner\" onclick='exp_shell.bannerClick()' src=\""+adBanner+"\" style=\"display:block; width:"+adBannerW+"px; height:"+adBannerH+"px; \" \/>";
+	if (!expanded) bannerStr += "<img id=\"adBanner\" onclick='exp_shell.bannerClick()' src=\""+adBanner+"\" style=\"display:block; width:"+adBannerW+"px; height:"+adBannerH+"px; \" \/>";
 	bannerStr += "<img id=\"AdMaximTrack\" style=\"display:block; margin:-1px 0 0 -1px; padding:0; width:1px; height:1px\" \/>";
 	var iframeStr = "<iframe id='adFrame' scrolling='no' src='' width='0' height='0' style='border:none; position:absolute; top:0; left:0;'></iframe>";
 	var expandedExp;
@@ -74,7 +89,7 @@ var Exp_Shell = function(){
 
 
 		
-		if (!expandable){
+		if (!expanded){
 			var closeBtn = document.createElement('div');
 			closeBtn.setAttribute('onclick', 'exp_shell.closeBtnClick()');
 			closeBtn.style.width = adBannerH + "px";

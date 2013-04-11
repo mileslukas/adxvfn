@@ -99,6 +99,9 @@ var AM_Game = function(){
 	}
 	
 	function setUpGame(e){
+
+		//createjs.Touch.enable(stage);
+
 		stage.removeChild(startBtn);
 		preloadAudio(e);
 
@@ -188,7 +191,7 @@ var AM_Game = function(){
     function handleProgress(event) {
     	//console.log(event.loaded * 100);
         loadBar.scaleX = event.loaded;
- 		loadTxt.text = "Loading " + Math.round(event.loaded * 100) + "%";
+ 		loadTxt.text =  "Loading" + Math.round(event.loaded * 100) + "%";
         
         if (event.loaded === 1) {
          	loadBarHolder.visible = false;
@@ -472,7 +475,7 @@ var AM_Game = function(){
 		audioTimer = setInterval(function(){monitorTrack(effectName);}, 1);
 	}
 			
-	function preloadAudio(userEvent){
+	function preloadAudio(){
 		if (!audioLoaded){
 			audioLoaded = true;
 			for (var i = 0; i < TRACKS.length; i++){
@@ -496,8 +499,8 @@ var AM_Game = function(){
 				//imgLib['loading'].holder.visible = false;
 				//console.log(TRACKS);
 			},true);
-			
-			audioTag.play();
+			$('#track1').get(0).play();
+			//audioTag.play();
 			audioTag.pause();
 		} else {
 			//imgLib['loading'].holder.visible = false;
