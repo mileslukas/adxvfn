@@ -191,7 +191,7 @@ var AM_Game = function(){
     function handleProgress(event) {
     	//console.log(event.loaded * 100);
         loadBar.scaleX = event.loaded;
- 		loadTxt.text =  "Loading" + Math.round(event.loaded * 100) + "%";
+ 		loadTxt.text =  "Loading " + Math.round(event.loaded * 100) + "%";
         
         if (event.loaded === 1) {
          	loadBarHolder.visible = false;

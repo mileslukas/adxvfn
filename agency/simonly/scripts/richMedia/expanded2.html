@@ -16,7 +16,18 @@
 
 <script>
 
-var trackingEnabled = false;
+var trackingEnabled = true;
+
+var clickid = getUrlVar('clickid');
+var appid = getUrlVar('appid');
+
+var admaxim_clickid = (typeof clickid != "undefined") ? clickid : "test_clickid";
+var admaxim_appid = (typeof appid != "undefined") ? appid : "test_appid";
+
+function getUrlVar(key){
+	var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+	return (result && unescape(result[1]) || undefined);
+}
 
 
 var _gaq = _gaq || [];
