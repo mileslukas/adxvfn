@@ -1346,7 +1346,7 @@ var AdMaximAdExperience = function() {
 			console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 			_gaq.push(['admaxim_tracking._trackEvent', eventCatigory, eventAction, eventLabel ]);
 
-			var url = "http://adstaging.admaxim.com/adtracker/track/app/event";
+			var url = "http://track.admaxim.com/adtracker/track/app/event";
 			url += "?appId=" + admaxim_appid;
 			url += "&clickId=" + admaxim_clickid;
 			url += "&pageId=" + "PAGE_ID";
