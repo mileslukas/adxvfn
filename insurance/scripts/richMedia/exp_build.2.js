@@ -37,7 +37,7 @@ var Exp_Shell = function(){
 
 
 	//var assetRoot = (ADMAXIM_assetRoot != undefined) ? ADMAXIM_assetRoot : undefined;
-	var assetRoot = "http://cdn2.admaxim.s3.amazonaws.com/";
+	var assetRoot = "http://cdnuk.admaxim.com.s3.amazonaws.com/";
 
 	var assetUrl;
 	if (appId != "") {

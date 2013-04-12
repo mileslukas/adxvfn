@@ -4,9 +4,13 @@
 
 var Exp_Shell = function(){
 
-	var expanded = (typeof isStandalone === "undefined" && isStandalone) ? true : false ;
-	console.log("expanded:" + expanded);
+	var expanded = (typeof isStandalone != "undefined" && isStandalone) ? true : false ;
 
+	var ADMAXIM_BANNER_W = 320;
+	var ADMAXIM_BANNER_H = 50;
+
+	var ADMAXIM_RICHMEDIA_W = 320;
+	var ADMAXIM_RICHMEDIA_H = 500;
 
 	var adBannerW = (ADMAXIM_BannerWidth != undefined) ? ADMAXIM_BannerWidth : ADMAXIM_BANNER_W;
 	var adBannerH = (ADMAXIM_BannerHeight != undefined) ? ADMAXIM_BannerHeight : ADMAXIM_BANNER_H;
@@ -22,7 +26,7 @@ var Exp_Shell = function(){
 
 
 	//var assetRoot = (ADMAXIM_assetRoot != undefined) ? ADMAXIM_assetRoot : undefined;
-	var assetRoot = "http://cdn2.admaxim.s3.amazonaws.com/";
+	var assetRoot = "http://cdnuk.admaxim.com.s3.amazonaws.com/";
 
 	var assetUrl;
 	if (appId != "") {
