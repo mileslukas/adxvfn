@@ -51,7 +51,7 @@ var AM_Game = function(){
 
 
 	this.init = function(){
-		console.log('init - game');
+		if (console) console.log('init - game');
 		shrinkCanvasForHighRes({w:ADMAXIM_GAME_WIDTH, h:ADMAXIM_GAME_HEIGHT})
 		readyToLoadModule();
 	}
@@ -65,7 +65,7 @@ var AM_Game = function(){
 	
 	function setUpCanvas(){
 		if (typeof(createjs) != 'undefined'){
-			console.log('createjs ready');
+			if (console) console.log('createjs ready');
 			mycanvas = document.getElementById('demoCanvas');
 			stage = new createjs.Stage(mycanvas);
 			
@@ -79,7 +79,7 @@ var AM_Game = function(){
 				setUpCanvas();
 			},500);
 			
-			console.log('createjs undefined');
+			if (console) console.log('createjs undefined');
 		}
 	}
 
@@ -122,7 +122,7 @@ var AM_Game = function(){
         preload.loadManifest(MANIFEST);
 
 		stage.onTick = function() {
-			//console.log('tick');
+			//if (console) console.log('tick');
 		}
 	}
 
@@ -194,7 +194,7 @@ var AM_Game = function(){
 	}
 
     function handleProgress(event) {
-    	//console.log(event.loaded * 100);
+    	//if (console) console.log(event.loaded * 100);
         loadBar.scaleX = event.loaded;
  		loadTxt.text = "Loading " + Math.round(event.loaded * 100) + "%";
         
@@ -207,7 +207,7 @@ var AM_Game = function(){
     }
 
     function singleImageLoaded(event) {
-    	console.log('image loaded ' + event.item.id);
+    	if (console) console.log('image loaded ' + event.item.id);
         var img = new Image();
         img.src = event.item.src;
         var bmp = new createjs.Bitmap(img);
@@ -218,18 +218,18 @@ var AM_Game = function(){
     }
 
 	function allImagesLoaded(){
-		console.log('allImagesLoaded');
+		if (console) console.log('allImagesLoaded');
 		gameHolder.alpha = 1;
 		buildGame();
 	}
 
 
 	function buildGame(){
-		console.log('buildGame');
+		if (console) console.log('buildGame');
 
 		admaxim_ad_experience.trackEvent('game_load_complete');
 
-		console.log(imgLib);
+		if (console) console.log(imgLib);
 		//createjs.Touch.enable(stage);
 
 
@@ -313,7 +313,7 @@ var AM_Game = function(){
 		
 		var x = evt.stageX;
 		var y = evt.stageY;
-		console.log(evt);
+		if (console) console.log(evt);
 
 		playEffect("crack" + randomNumberBetween(1,3));
 		var newCrack = imgLib['crack' + randomNumberBetween(1,3)].clone();
@@ -362,7 +362,7 @@ var AM_Game = function(){
 
 	function openFinalLink(){
 		admaxim_ad_experience.trackEvent('click_to_vodafone');
-		console.log('openFinalLink');
+		if (console) console.log('openFinalLink');
 		window.open(FINAL_URL);
 	}
 
@@ -379,7 +379,7 @@ var AM_Game = function(){
 				window.clearInterval(audioTimer);
 				audioTag.pause();
 				trackPlaying = false;
-				console.log('sound effect done');
+				if (console) console.log('sound effect done');
 			}
 			
 		}
@@ -391,8 +391,8 @@ var AM_Game = function(){
 		var audioTag = document.getElementById('track1');
 		audioTag.pause();
 		var track = trackDic[effectName];
-		//console.log();
-		console.log('play effect ' + effectName + ' time:' + track.start);
+		//if (console) console.log();
+		if (console) console.log('play effect ' + effectName + ' time:' + track.start);
 		
 		audioTag.currentTime = track.start;
 		audioTag.play();
@@ -409,7 +409,7 @@ var AM_Game = function(){
 				trackObj.start = TRACKS[i].start;
 				trackObj.end = TRACKS[i].end;
 				trackDic[TRACKS[i].name] = trackObj;
-				console.log('added effect: ' + TRACKS[i].name);
+				if (console) console.log('added effect: ' + TRACKS[i].name);
 			}
 			
 			var tag = "<audio id='track1'><source src='" + MP3_URL + "'></audio>";
@@ -420,10 +420,10 @@ var AM_Game = function(){
 			//audioTag.addEventListener('progress',function(e){audioTagProgress(e, userEvent);},true);
 			
 			audioTag.addEventListener('canplaythrough',function(e){	
-				console.log('canplaythrough');
+				if (console) console.log('canplaythrough');
 				//startLevel(4000, 3500);
 				//imgLib['loading'].holder.visible = false;
-				//console.log(TRACKS);
+				//if (console) console.log(TRACKS);
 			},true);
 			
 			audioTag.play();
@@ -475,7 +475,7 @@ var cdnurl = '';
 try{
 	if (ADMAXIM_assetRoot != undefined) cdnurl += ADMAXIM_assetRoot + ADMAXIM_appId;
 } catch(e){
-	console.log('no ADMAXIM_assetRoot, must be local build');
+	if (console) console.log('no ADMAXIM_assetRoot, must be local build');
 }
 
 var am_game;

@@ -51,6 +51,6 @@ function AM_include_js(file, nextFunction) {
 }
 
 function AM_expDone(){
-	//console.log("exp.js complete");
+	//if (console) console.log("exp.js complete");
 }
 

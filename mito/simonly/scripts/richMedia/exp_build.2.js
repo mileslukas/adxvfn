@@ -4,7 +4,6 @@
 
 var Exp_Shell = function(){
 
-	var expanded = (typeof isStandalone != "undefined" && isStandalone) ? true : false ;
 
 
 	var ADMAXIM_BANNER_W = 320;
@@ -12,18 +11,87 @@ var Exp_Shell = function(){
 
 	var ADMAXIM_RICHMEDIA_W = 320;
 	var ADMAXIM_RICHMEDIA_H = 500;
-		
+
 	var adBannerW = (ADMAXIM_BannerWidth != undefined) ? ADMAXIM_BannerWidth : ADMAXIM_BANNER_W;
 	var adBannerH = (ADMAXIM_BannerHeight != undefined) ? ADMAXIM_BannerHeight : ADMAXIM_BANNER_H;
 
-	var adExpandW = ADMAXIM_RICHMEDIA_W;
-	var adExpandH = ADMAXIM_RICHMEDIA_H;
 
 
-	var clickUrl = (ADMAXIM_clickUrl != undefined) ? ADMAXIM_clickUrl  : " ";
-	var clickId = (ADMAXIM_clickId != undefined) ? ADMAXIM_clickId  : " ";
+
+
+
+
+	var isMobile = {
+    	Android: function() {
+        	return navigator.userAgent.match(/Android/i);
+    	},
+	    BlackBerry: function() {
+	        return navigator.userAgent.match(/BlackBerry/i);
+	    },
+	    iOS: function() {
+	        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+	    },
+	    Opera: function() {
+	        return navigator.userAgent.match(/Opera Mini/i);
+	    },
+	    Windows: function() {
+	        return navigator.userAgent.match(/IEMobile/i);
+	    },
+	    any: function() {
+	        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+	    }
+	};
+	
+
+	var newScale;
+	
+	
+	if( isMobile.any() ){
+		newScale = ($(window).width() / ADMAXIM_RICHMEDIA_W);
+	} else {
+		newScale = 1;
+	}
+	
+	alert('isMobile.any() ' + isMobile.any() + " newScale " + newScale);
+
+
+
+	var adExpandW = ADMAXIM_RICHMEDIA_W * newScale;
+	var adExpandH = ADMAXIM_RICHMEDIA_H * newScale;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	var clickUrl = (ADMAXIM_clickUrl != undefined) ? ADMAXIM_clickUrl  : "";
+	var clickId = (ADMAXIM_clickId != undefined) ? ADMAXIM_clickId  : "";
 
 	var appId = (ADMAXIM_appId != undefined) ? ADMAXIM_appId : "";
+
+
+	var standalone = getUrlVar('standalone');
+
+	var expanded = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes" || typeof standalone != "undefined" && standalone === "yes") ? true : false;
+
+
+	function getUrlVar(key){
+		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+		return (result && unescape(result[1]) || undefined);
+	}	
 
 
 	//var assetRoot = (ADMAXIM_assetRoot != undefined) ? ADMAXIM_assetRoot : undefined;
@@ -35,12 +103,12 @@ var Exp_Shell = function(){
 	} else {
 		assetUrl = '';
 	}
-	console.log("assetUrl:" + assetUrl);
+	if (console) console.log("assetUrl:" + assetUrl);
 
-	var iframeUrl = assetUrl + "scripts/richMedia/expanded2.html?clickid=" + clickId + "&appid=" + appId;
+	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId + "&standalone=" + standalone;
 
 
-	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : "scripts/richMedia/media/vodafonesimonlybanner.gif";
+	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : LOCAL_BANNER_URL;
 
 	//var closeBtnUrl = assetUrl + "btnClose.png";
 
@@ -55,6 +123,16 @@ var Exp_Shell = function(){
 	var expandedExp;
 	var trackImg;
 	var expandedIframe;
+
+
+
+
+
+
+
+
+
+
 
 
 	function buildAd(){

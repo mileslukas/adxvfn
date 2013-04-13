@@ -31,7 +31,7 @@ function AdMaxim_load_additional_js() {
 }
 
 function AdMaxim_load_js(file, nextFunction) {
-	console.log("FIRST LOAD: " + file);
+	if (console) console.log("FIRST LOAD: " + file);
 	var html_doc = document.getElementsByTagName('head')[0];
 	var js = document.createElement('script');
 	js.setAttribute('type', 'text/javascript');
@@ -46,7 +46,7 @@ function AdMaxim_load_js(file, nextFunction) {
 
 function AdMaxim_scriptLoaded() {
 	admaxim_num_loaded_js += 1;
-	console.log('scriptLoaded ' + admaxim_num_loaded_js);
+	if (console) console.log('scriptLoaded ' + admaxim_num_loaded_js);
 	if (admaxim_num_loaded_js >= admaxim_additional_js.length) {
 		
 		admaxim_ad_experience = new AdMaximAdExperience();
@@ -152,7 +152,7 @@ var AdMaximAdExperience = function() {
 	
 		$('#AdMaximRichMedia').append(bannerStr);
 		
-		$('#AdMaximRichMedia').click(function(){ dropBanner(); });
+		//$('#AdMaximRichMedia').click(function(){ dropBanner(); });
 		
 		pageData = admaxim_ad.resources.gallery.pages;
 		numOfPages = pageData.length;
@@ -280,7 +280,7 @@ var AdMaximAdExperience = function() {
 			admaxim_ad_device_ios = true;
 		}
 		
-		console.log('newScale ' + newScale);
+		if (console) console.log('newScale ' + newScale);
 	
 		//var newScale = 1;
 	
@@ -742,7 +742,7 @@ var AdMaximAdExperience = function() {
 						//load_js(js);
 						scriptList.push(js);
 					}
-					//console.log(scriptList);
+					//if (console) console.log(scriptList);
 					loadScriptsInOrder(scriptList);
 				}
 			}
@@ -915,13 +915,13 @@ var AdMaximAdExperience = function() {
 			//loadRestOfBackgrounds();
 			//firstRun = false;
 			//that.trackEvent("firstexpand", "firstexpand2");
-			console.log('isStandalone isStandaloneisStandaloneisStandaloneisStandalone ' + isStandalone);
+			if (console) console.log('isStandalone isStandaloneisStandaloneisStandaloneisStandalone ' + isStandalone);
 			if (typeof isStandalone != "undefined" && isStandalone){
 				$('#ad_wrapper').css({'top':'0px'});
 				that.trackEvent("firstexpand", "firstexpand2");
-				//console.log('YES OH YES');
+				//if (console) console.log('YES OH YES');
 			} else {
-				//console.log('NONOONONON OH NO');
+				//if (console) console.log('NONOONONON OH NO');
 				dropBanner();
 			}
 		}
@@ -952,17 +952,17 @@ var AdMaximAdExperience = function() {
 
 
 	function selectedPage(event){
-		//console.log('captured select page event');
+		//if (console) console.log('captured select page event');
 		var eventName = event.type;
 		var lastChar = Math.abs(eventName[eventName.length-1]);
-		//console.log("page num" + lastChar);
+		//if (console) console.log("page num" + lastChar);
 		
 		//only load page if it hasn't been loaded before
 		if (!isPageLoaded[lastChar]){
 			isPageLoaded[lastChar] = true;
 			loadHtml(lastChar);
 			loadScripts(lastChar);
-			//console.log('load page');
+			//if (console) console.log('load page');
 		} 
 	}
 
@@ -985,7 +985,7 @@ var AdMaximAdExperience = function() {
 				//load_js(js);
 				scriptList.push(js);
 			}
-			//console.log(scriptList);
+			//if (console) console.log(scriptList);
 			loadScriptsInOrder(scriptList);
 		}
 	}
@@ -994,9 +994,9 @@ var AdMaximAdExperience = function() {
 	function loadMapOnDemand(){
 		if (!mapLoaded){
 			mapLoaded = true;
-			console.log('load the map');
+			if (console) console.log('load the map');
 			var html = pageData[2].html[0].embed;
-			console.log(html);
+			if (console) console.log(html);
 			$('#page2').append(html);
 		}
 	}
@@ -1080,7 +1080,7 @@ var AdMaximAdExperience = function() {
 		
 		if (admaxim_ad.resources.usemenu != "no"){
 			var menuBtnNum = menuNumDic[currentPage];
-		//console.log("menuBtnNum "+ menuBtnNum);
+		//if (console) console.log("menuBtnNum "+ menuBtnNum);
 			if (menuBtnNum != undefined){
 				var oldBtn = 'menuBtn' + currentMenuBtn + '_highlight';
 				$('#'+oldBtn).css('opacity','0');
@@ -1095,7 +1095,7 @@ var AdMaximAdExperience = function() {
 				
 			} else {
 				if (currentPage < parseFloat(admaxim_ad.resources.menu.buttons[currentMenuBtn].type)){
-					//console.log("menu button to hide " + currentMenuBtn);	
+					//if (console) console.log("menu button to hide " + currentMenuBtn);	
 					var oldBtn = 'menuBtn' + currentMenuBtn + '_highlight';
 					$('#'+oldBtn).css('opacity','0');
 					
@@ -1178,7 +1178,7 @@ var AdMaximAdExperience = function() {
 	}
 	
 	function include_js_in_order(jsList, currentCount) {
-		console.log("loading: " + jsList[currentCount]);
+		if (console) console.log("loading: " + jsList[currentCount]);
 		var count = currentCount;
 		var html_doc = document.getElementsByTagName('head')[0];
 		var js = document.createElement('script');
@@ -1196,7 +1196,7 @@ var AdMaximAdExperience = function() {
 	
 	
 	function load_js(url) {
-		console.log("load: " + url);
+		if (console) console.log("load: " + url);
 		if (url.indexOf("http") != 0) url = assetUrl + url;
 	
 		var head = document.getElementsByTagName('head')[0];
@@ -1206,7 +1206,7 @@ var AdMaximAdExperience = function() {
 		head.appendChild(script);
 	
 		script.onload = function () {
-			console.log("done: " + url);
+			if (console) console.log("done: " + url);
 		}
 		return false;
 	}
@@ -1229,10 +1229,10 @@ var AdMaximAdExperience = function() {
 				onYouTubePlayerAPIReady(vidTrackArr[i]);
 			};
 			setUpYoutubeVideoTracking();
-			console.log('youtube api enabled successful');
+			if (console) console.log('youtube api enabled successful');
 		} catch (e){
-			console.log(e);
-			console.log('youtube api not accessable yet, trying again...');
+			if (console) console.log(e);
+			if (console) console.log('youtube api not accessable yet, trying again...');
 			setTimeout(loadYoutubeTracking, 500);
 		}
 	}
@@ -1245,7 +1245,7 @@ var AdMaximAdExperience = function() {
 		});
 
 		youtubePlayers[iframeId] = player;
-		console.log('youtube onStateChange enabled for '+ iframeId);
+		if (console) console.log('youtube onStateChange enabled for '+ iframeId);
 	}
 	
 	function onPlayerStateChange(event) {
@@ -1256,19 +1256,19 @@ var AdMaximAdExperience = function() {
      	
      	switch(event.data){
      		case YT.PlayerState.PLAYING:
-     			console.log('PLAYING');
+     			if (console) console.log('PLAYING');
      			that.trackEvent(id + '_play', id + '_play');
      			startYoutubePercTracking(id);
      			break;
 
      		case YT.PlayerState.PAUSED:
-     			console.log('PAUSED');
+     			if (console) console.log('PAUSED');
      			that.trackEvent(id + '_pause', id + '_pause');
      			stopYoutubePercTracking(id);
      			break;
 
      		case YT.PlayerState.ENDED:
-     			console.log('ENDED');
+     			if (console) console.log('ENDED');
      			that.trackEvent(id+'_ended', id+'_ended');
      			break;
 		
@@ -1343,7 +1343,7 @@ var AdMaximAdExperience = function() {
 		var	eventLabel = admaxim_ad.resources.adgroupid;
 		
 		if (trackingEnabled){
-			console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
+			if (console) console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 			_gaq.push(['admaxim_tracking._trackEvent', eventCatigory, eventAction, eventLabel ]);
 
 			var url = "http://track.admaxim.com/adtracker/track/app/event";
@@ -1358,9 +1358,9 @@ var AdMaximAdExperience = function() {
 
 
 		} else {
-			console.log("NOT TRACKING " + eventAction);
+			if (console) console.log("NOT TRACKING " + eventAction);
 
-			//console.log("NO track - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
+			//if (console) console.log("NO track - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 
 		}
 
@@ -1373,7 +1373,7 @@ var AdMaximAdExperience = function() {
 	
 	
 	function trc(str) {
-		console.log(str);
+		if (console) console.log(str);
 	}
 
 
