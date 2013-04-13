@@ -52,7 +52,7 @@ var Exp_Shell = function(){
 		newScale = 1;
 	}
 	
-	alert('isMobile.any() ' + isMobile.any() + " newScale " + newScale);
+	//alert('isMobile.any() ' + isMobile.any() + " newScale " + newScale);
 
 
 

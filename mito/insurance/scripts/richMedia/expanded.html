@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5 Template</title>
+	<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<meta name="viewport" content="width=320">
+</head>
+<body>
+
+<style type="text/css">
+	body{margin:0; padding:0;}	
+	#end_frame{display:none;}
+
+</style>
+
+<script>
+
+var trackingEnabled = true;
+
+var clickid = getUrlVar('clickid');
+var appid = getUrlVar('appid');
+
+var admaxim_clickid = (typeof clickid != "undefined") ? clickid : "test_clickid";
+var admaxim_appid = (typeof appid != "undefined") ? appid : "test_appid";
+
+function getUrlVar(key){
+	var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+	return (result && unescape(result[1]) || undefined);
+}
+	
+var _gaq = _gaq || [];
+_gaq.push(['admaxim_tracking._setAccount', 'UA-37035980-1']);
+_gaq.push(['admaxim_tracking._trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+
+	var page_scale = (320/768);
+
+	$('#wrapper').css({'position':'absolute', 'width':'768px', 'height':'1200px',
+		'transform-origin':'0% 0%',
+		'-ms-transform-origin':'0% 0%',
+		'-webkit-transform-origin':'0% 0%',
+		'-moz-transform-origin':'0% 0%',
+		'-o-transform-origin':'0% 0%',
+		'transform': 'scale('+page_scale+','+page_scale+')',
+		'-ms-transform': 'scale('+page_scale+','+page_scale+')',
+		'-webkit-transform': 'scale('+page_scale+','+page_scale+')',
+		'-o-transform': 'scale('+page_scale+','+page_scale+')',
+		'-moz-transform': 'scale('+page_scale+','+page_scale+')',
+		'-ms-transform': 'scale('+page_scale+','+page_scale+')'
+	});
+
+	$('#end_frame').click(function(){
+		console.log('$(#end_frame).click');
+		trackEvent('click_to_vodafone');
+		window.open('http://m.vodafone.hu/mobiltarifak/red');
+
+	});
+
+
+	$('#crack').click(function(){
+		console.log('crack click');
+		$('#crack').hide();
+		$('#end_frame').show();	
+	});
+
+
+	setTimeout(function(){
+		$('#crack').hide();
+		$('#end_frame').show();
+		trackEvent('show_endframe');
+	}, 2000);
+
+
+	function trackEvent (event_description) {
+
+		var eventCatigory = "vodafone_mito_insurance";
+		var eventLabel = "vodafone_mito"
+		var eventAction = event_description;
+		
+		if (trackingEnabled){
+			console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
+			_gaq.push(['admaxim_tracking._trackEvent', eventCatigory, eventAction, eventLabel ]);
+
+			var url = "http://track.admaxim.com/adtracker/track/app/event";
+			url += "?appId=" + admaxim_appid;
+			url += "&clickId=" + admaxim_clickid;
+			url += "&pageId=" + "PAGE_ID";
+			url += "&pageRId=" + "PAGE_R_ID";
+			url += "&eventType=" + eventAction;
+			url += "&eventData=" + "EVENT_DATA";
+
+			$('#AdMaximTrack').attr('src', url);	
+		} else {
+			console.log("NO TRACK " + eventAction);
+		}
+	}
+});
+
+</script>
+
+
+<div id='wrapper'>
+
+	<img id="crack" src="media/crack.png" />
+	<img id="end_frame" src="media/end.jpg" />
+
+</div>
+
+
+</body>
+</html>
