@@ -9,8 +9,9 @@
 
 <style type="text/css">
 	body{margin:0; padding:0;}	
-	#end_frame{display:none;}
-
+	#end_frame{display:none; position:absolute;}
+	#crack{ position:absolute;}
+	#close_btn{position:absolute; top:0px; right:0px;}
 </style>
 
 <script>
@@ -40,7 +41,37 @@ _gaq.push(['admaxim_tracking._trackPageview']);
 
 $(function() {
 
-	var page_scale = (320/768);
+
+	var isMobile = {
+    	Android: function() {
+        	return navigator.userAgent.match(/Android/i);
+    	},
+	    BlackBerry: function() {
+	        return navigator.userAgent.match(/BlackBerry/i);
+	    },
+	    iOS: function() {
+	        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+	    },
+	    Opera: function() {
+	        return navigator.userAgent.match(/Opera Mini/i);
+	    },
+	    Windows: function() {
+	        return navigator.userAgent.match(/IEMobile/i);
+	    },
+	    any: function() {
+	        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+	    }
+	};
+	
+	
+	if( isMobile.any()){
+		var page_scale = ($(window).width()/768);
+	} else {
+		var page_scale = (320/768);
+	}
+
+
+
 
 	$('#wrapper').css({'position':'absolute', 'width':'768px', 'height':'1200px',
 		'transform-origin':'0% 0%',
@@ -71,12 +102,13 @@ $(function() {
 	});
 
 
+	/*
 	setTimeout(function(){
 		$('#crack').hide();
 		$('#end_frame').show();
 		trackEvent('show_endframe');
 	}, 2000);
-
+	*/
 
 	function trackEvent (event_description) {
 
@@ -108,9 +140,10 @@ $(function() {
 
 <div id='wrapper'>
 
-	<img id="crack" src="media/crack.png" />
-	<img id="end_frame" src="media/end.jpg" />
+	<img id="crack" src="media/crack2.png" />
 
+	<img id="end_frame" src="media/end2.png" />
+	<img id="close_btn" src="media/close_btn.png" />
 </div>
 
 

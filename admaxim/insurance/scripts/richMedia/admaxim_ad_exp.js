@@ -273,13 +273,19 @@ var AdMaximAdExperience = function() {
 		
 		
 		if( isMobile.any() && !isMobile.iOS()){
-			newScale = ($(window).width() / ad_width);
 			admaxim_ad_device_ios = false;
 		} else {
-			newScale = 1;
 			admaxim_ad_device_ios = true;
 		}
-		
+
+		if( isMobile.any() ){
+			newScale = ($(window).width() / ad_width);
+		} else {
+			newScale = 1;
+		}
+
+
+
 		if (console) console.log('newScale ' + newScale);
 	
 		//var newScale = 1;
