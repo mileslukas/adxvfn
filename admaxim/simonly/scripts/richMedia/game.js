@@ -460,24 +460,26 @@ var AM_Game = function(){
 	}
 	
 	function playEffect(effectName){
-		if (audioTimer) window.clearInterval(audioTimer);
-		
-		var audioTag = document.getElementById('track1');
-		audioTag.pause();
-		var track = trackDic[effectName];
-		//console.log();
-		console.log('play effect ' + effectName + ' time:' + track.start);
-		
-		audioTag.currentTime = track.start;
-		audioTag.play();
-		
-		trackPlaying = true;
-		audioTimer = setInterval(function(){monitorTrack(effectName);}, 1);
+		if (audioLoaded){
+			if (audioTimer) window.clearInterval(audioTimer);
+			
+			var audioTag = document.getElementById('track1');
+			audioTag.pause();
+			var track = trackDic[effectName];
+			//console.log();
+			console.log('play effect ' + effectName + ' time:' + track.start);
+			
+			audioTag.currentTime = track.start;
+			audioTag.play();
+			
+			trackPlaying = true;
+			audioTimer = setInterval(function(){monitorTrack(effectName);}, 1);
+		}
 	}
 			
 	function preloadAudio(){
 		if (!audioLoaded){
-			audioLoaded = true;
+			
 			for (var i = 0; i < TRACKS.length; i++){
 				var trackObj = {};
 				trackObj.start = TRACKS[i].start;
@@ -495,6 +497,7 @@ var AM_Game = function(){
 			
 			audioTag.addEventListener('canplaythrough',function(e){	
 				console.log('canplaythrough');
+				audioLoaded = true;
 				//startLevel(4000, 3500);
 				//imgLib['loading'].holder.visible = false;
 				//console.log(TRACKS);

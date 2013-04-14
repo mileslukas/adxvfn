@@ -42,7 +42,33 @@ _gaq.push(['admaxim_tracking._trackPageview']);
 
 $(function() {
 
-	var page_scale = (320/768);
+	var isMobile = {
+    	Android: function() {
+        	return navigator.userAgent.match(/Android/i);
+    	},
+	    BlackBerry: function() {
+	        return navigator.userAgent.match(/BlackBerry/i);
+	    },
+	    iOS: function() {
+	        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+	    },
+	    Opera: function() {
+	        return navigator.userAgent.match(/Opera Mini/i);
+	    },
+	    Windows: function() {
+	        return navigator.userAgent.match(/IEMobile/i);
+	    },
+	    any: function() {
+	        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+	    }
+	};
+	
+	
+	if( isMobile.any()){
+		var page_scale = ($(window).width()/768);
+	} else {
+		var page_scale = (320/768);
+	}
 
 	$('#wrapper').css({'position':'absolute', 'width':'768px', 'height':'1200px',
 		'transform-origin':'0% 0%',
