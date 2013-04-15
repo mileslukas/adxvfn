@@ -16,6 +16,8 @@
 
 <script>
 
+var v = "http://huomdgde.hit.gemius.pl/hitredir/id=pzM1j7s6XZKBsTrsqNGWiKbjXoygPGNaC_sMchWJQdH.k7/fastid=dkqhhmnjufyiirjdokydkbjcykks/stparam=roifqiemzp/url=http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red?ecmp=mob-aaaa0065aaaa0172-aaaa0149";
+
 var trackingEnabled = true;
 
 var clickid = getUrlVar('clickid');
@@ -71,8 +73,6 @@ $(function() {
 	}
 
 
-
-
 	$('#wrapper').css({'position':'absolute', 'width':'768px', 'height':'1200px',
 		'transform-origin':'0% 0%',
 		'-ms-transform-origin':'0% 0%',
@@ -88,15 +88,15 @@ $(function() {
 	});
 
 	$('#end_frame').click(function(){
-		console.log('$(#end_frame).click');
+		// console.log('$(#end_frame).click');
 		trackEvent('click_to_vodafone');
-		window.open('http://m.vodafone.hu/mobiltarifak/red');
+		window.open(CLICK_URL);
 
 	});
 
 
 	$('#crack').click(function(){
-		console.log('crack click');
+		// console.log('crack click');
 		$('#crack').hide();
 		$('#end_frame').show();	
 	});
@@ -117,20 +117,20 @@ $(function() {
 		var eventAction = event_description;
 		
 		if (trackingEnabled){
-			console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
+			//console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 			_gaq.push(['admaxim_tracking._trackEvent', eventCatigory, eventAction, eventLabel ]);
 
 			var url = "http://track.admaxim.com/adtracker/track/app/event";
 			url += "?appId=" + admaxim_appid;
 			url += "&clickId=" + admaxim_clickid;
-			url += "&pageId=" + "PAGE_ID";
-			url += "&pageRId=" + "PAGE_R_ID";
+			url += "&pageId=" + "1";
+			url += "&pageRId=" + "1";
 			url += "&eventType=" + eventAction;
 			url += "&eventData=" + "EVENT_DATA";
 
 			$('#AdMaximTrack').attr('src', url);	
 		} else {
-			console.log("NO TRACK " + eventAction);
+			//console.log("NO TRACK " + eventAction);
 		}
 	}
 });

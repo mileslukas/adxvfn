@@ -103,7 +103,7 @@ var Exp_Shell = function(){
 	} else {
 		assetUrl = '';
 	}
-	if (console) console.log("assetUrl:" + assetUrl);
+	//if (console) console.log("assetUrl:" + assetUrl);
 
 	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId + "&standalone=" + standalone;
 

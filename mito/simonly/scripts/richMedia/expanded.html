@@ -86,7 +86,7 @@ $(function() {
 
 
 	$('#end_frame').click(function(){
-		console.log('$(#end_frame).click');
+		//console.log('$(#end_frame).click');
 		trackEvent('click_to_vodafone');
 		window.open('http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red');
 
@@ -121,7 +121,7 @@ $(function() {
 	      		top: 'easeOutBounce'
 	    	},
 	    	complete: function() {
-	      		console.log('animations complete');
+	      		//console.log('animations complete');
 
 	      		setTimeout(function(){
 	      			$('#end_frame').css({'display':'block'});
@@ -142,20 +142,20 @@ $(function() {
 		var eventAction = event_description;
 		
 		if (trackingEnabled){
-			console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
+			//console.log("TRACK - cat:" + eventCatigory + ", label:" + eventLabel + ", action:" + eventAction);
 			_gaq.push(['admaxim_tracking._trackEvent', eventCatigory, eventAction, eventLabel ]);
 
 			var url = "http://track.admaxim.com/adtracker/track/app/event";
 			url += "?appId=" + admaxim_appid;
 			url += "&clickId=" + admaxim_clickid;
-			url += "&pageId=" + "PAGE_ID";
-			url += "&pageRId=" + "PAGE_R_ID";
+			url += "&pageId=" + "1";
+			url += "&pageRId=" + "1";
 			url += "&eventType=" + eventAction;
 			url += "&eventData=" + "EVENT_DATA";
 
 			$('#AdMaximTrack').attr('src', url);	
 		} else {
-			console.log("NO TRACK " + eventAction);
+			//console.log("NO TRACK " + eventAction);
 		}
 	}
 
