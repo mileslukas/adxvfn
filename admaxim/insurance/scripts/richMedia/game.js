@@ -6,7 +6,12 @@ var AM_Game = function(){
 	var ADMAXIM_GAME_WIDTH = 320;
 	var ADMAXIM_GAME_HEIGHT = 500;
 
-	var FINAL_URL = "http://m.vodafone.hu/mobiltarifak/red";
+	//var FINAL_URL = "http://m.vodafone.hu/mobiltarifak/red";
+	// CPM
+	var FINAL_URL = "http://huomdgde.hit.gemius.pl/hitredir/id=pzM1j7s6XZKBsTrsqNGWiKbjXoygPGNaC_sMchWJQdH.k7/fastid=lpksbnrketcqzjnnewkqlfrgnmma/stparam=rljmgmrfeh/url=http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red?ecmp=mob-aaaa0065aaaa0172-aaaa0144";
+	// CPC
+	//var FINAL_URL = "http://huomdgde.hit.gemius.pl/hitredir/id=pzM1j7s6XZKBsTrsqNGWiKbjXoygPGNaC_sMchWJQdH.k7/fastid=ntazyxifttpqqdmvfkftrrpfqfno/stparam=ninsixjtat/url=http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red?ecmp=mob-aaaa0065aaaa0172-aaaa0148";
+
 
 	var newScale = 2.4;
 	var oldScale = .417;
@@ -19,7 +24,7 @@ var AM_Game = function(){
 	var loadBar;
 	var loadBarHolder;
 	var gameHolder;	
-	var startBtn;
+	var startBtnContainer;
 
 	var moduleLoaded = false;
 	var crackHolder;
@@ -84,14 +89,34 @@ var AM_Game = function(){
 	}
 
 	function buildStartBtn(){
+
+		var startBtnContainer = new createjs.Container();
+
+		var action_txt_img = new Image();
+		action_txt_img.src = "media/game/txt_touch_here.png";
+        var action_txt_bmp = new createjs.Bitmap(action_txt_img);
+        imgLib["action_txt"] = action_txt_bmp;
+        imgLib["action_txt"].y = 283;
+        startBtnContainer.addChild(imgLib["action_txt"]);
+
+        if (!isStandalone){
+	        var close_btn_red_img = new Image();
+			close_btn_red_img.src = "media/game/close_btn_red.png";
+	        var close_btn_red_bmp = new createjs.Bitmap(close_btn_red_img);
+	        imgLib["close_btn_red"] = close_btn_red_bmp;
+	        imgLib["close_btn_red"].x = 661;
+	        startBtnContainer.addChild(imgLib["close_btn_red"]);
+    	}
+
 		var startGraphic = new createjs.Graphics();
 		startGraphic.beginFill('green');
 		startGraphic.drawRect(0, 0, 768, 1200);
-		startBtn = new createjs.Shape(startGraphic);
+		var startBtn = new createjs.Shape(startGraphic);
 		startBtn.alpha = 0.01;
 		startBtn.onPress = setUpGame;
-		stage.addChild(startBtn);
+		startBtnContainer.addChild(startBtn);
 		
+		stage.addChild(startBtnContainer);
 
 		createjs.Touch.enable(stage);
 
@@ -107,7 +132,7 @@ var AM_Game = function(){
 	
 	function setUpGame(e){
 		preloadAudio(e);
-		stage.removeChild(startBtn);
+		stage.removeChild(startBtnContainer);
 
 		admaxim_ad_experience.trackEvent('game_load_start');
 
@@ -273,7 +298,7 @@ var AM_Game = function(){
 
 		imgLib['close_btn_white'].x = 661;
 
-		gameHolder.addChild(imgLib['close_btn_white']);
+		if (!isStandalone) gameHolder.addChild(imgLib['close_btn_white']);
 
 
 

@@ -19,7 +19,7 @@ var admaxim_ad =
 				 	'title':'page1',
 				 	'track':'page_1_view',
 					'track2'	: ' ',
-				 	'background':'media/game/view_start_hg.png',
+				 	'background':'media/bg.png',
 					"html"   	:
 					[
 						{
