@@ -36,6 +36,30 @@ var AM_Game = function(){
 		{src:"media/game/view_end_hg.png", id:"view_end"}
 	];
 
+	var isMobile = {
+    	Android: function() {
+        	return navigator.userAgent.match(/Android/i);
+    	},
+	    BlackBerry: function() {
+	        return navigator.userAgent.match(/BlackBerry/i);
+	    },
+	    iOS: function() {
+	        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+	    },
+	    Opera: function() {
+	        return navigator.userAgent.match(/Opera Mini/i);
+	    },
+	    Windows: function() {
+	        return navigator.userAgent.match(/IEMobile/i);
+	    },
+	    any: function() {
+	        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+	    }
+	};
+	
+
+
+
 
 
 	var audioTimer;
@@ -502,9 +526,16 @@ var AM_Game = function(){
 				//imgLib['loading'].holder.visible = false;
 				//console.log(TRACKS);
 			},true);
-			$('#track1').get(0).play();
-			//audioTag.play();
+			
+
+			if( isMobile.any() ){
+				$('#track1').get(0).play();
+			} else {
+				audioTag.play();
+			}
+			
 			audioTag.pause();
+			
 		} else {
 			//imgLib['loading'].holder.visible = false;
 			//startLevel(4000, 3500);
