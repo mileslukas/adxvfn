@@ -1350,8 +1350,8 @@ var AdMaximAdExperience = function() {
 			var url = "http://track.admaxim.com/adtracker/track/app/event";
 			url += "?appId=" + admaxim_appid;
 			url += "&clickId=" + admaxim_clickid;
-			url += "&pageId=" + "PAGE_ID";
-			url += "&pageRId=" + "PAGE_R_ID";
+			url += "&pageId=" + "1";
+			url += "&pageRId=" + "1";
 			url += "&eventType=" + eventAction;
 			url += "&eventData=" + "EVENT_DATA";
 
