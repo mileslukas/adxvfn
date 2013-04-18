@@ -83,9 +83,9 @@ var Exp_Shell = function(){
 	var appId = (ADMAXIM_appId != undefined) ? ADMAXIM_appId : "";
 
 
-	var standalone = getUrlVar('standalone');
+	//var standalone = getUrlVar('standalone');
 
-	var expanded = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes" || typeof standalone != "undefined" && standalone === "yes") ? true : false;
+	//var expanded = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes" || typeof standalone != "undefined" && standalone === "yes") ? true : false;
 
 
 	function getUrlVar(key){
@@ -105,7 +105,7 @@ var Exp_Shell = function(){
 	}
 	//if (console) console.log("assetUrl:" + assetUrl);
 
-	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html?clickid=" + clickId + "&appid=" + appId + "&standalone=" + standalone;
+	var iframeUrl = assetUrl + "scripts/richMedia/expanded.html";
 
 
 	var adBanner = (ADMAXIM_adBanner != undefined) ? ADMAXIM_adBanner : LOCAL_BANNER_URL;
@@ -117,7 +117,7 @@ var Exp_Shell = function(){
 	var adLoaded = false;
 
 	var bannerStr = "";
-	if (!expanded) bannerStr += "<img id=\"adBanner\" onclick='exp_shell.bannerClick()' src=\""+adBanner+"\" style=\"display:block; width:"+adBannerW+"px; height:"+adBannerH+"px; \" \/>";
+	bannerStr += "<img id=\"adBanner\" onclick='exp_shell.bannerClick()' src=\""+adBanner+"\" style=\"display:block; width:"+adBannerW+"px; height:"+adBannerH+"px; \" \/>";
 	bannerStr += "<img id=\"AdMaximTrack\" style=\"display:block; margin:-1px 0 0 -1px; padding:0; width:1px; height:1px\" \/>";
 	var iframeStr = "<iframe id='adFrame' scrolling='no' src='' width='0' height='0' style='border:none; position:absolute; top:0; left:0;'></iframe>";
 	var expandedExp;
@@ -157,18 +157,16 @@ var Exp_Shell = function(){
 
 
 		
-		if (!expanded){
-			var closeBtn = document.createElement('div');
-			closeBtn.setAttribute('onclick', 'exp_shell.closeBtnClick()');
-			closeBtn.style.width = adBannerH + "px";
-			closeBtn.style.height = adBannerH + "px";
-			closeBtn.style.right = "0px";
-			closeBtn.style.top = "0px";
-			closeBtn.style.position = "absolute";
-			ex.appendChild(closeBtn);
-		} else {
-			expandExp();
-		}
+		
+		var closeBtn = document.createElement('div');
+		closeBtn.setAttribute('onclick', 'exp_shell.closeBtnClick()');
+		closeBtn.style.width = adBannerH + "px";
+		closeBtn.style.height = adBannerH + "px";
+		closeBtn.style.right = "0px";
+		closeBtn.style.top = "0px";
+		closeBtn.style.position = "absolute";
+		ex.appendChild(closeBtn);
+
 
 
 	}

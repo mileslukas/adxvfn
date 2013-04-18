@@ -16,6 +16,8 @@
 
 <script>
 
+var CLICK_URL = "http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red?ecmp=mob-aaaa0065aaaa0172-aaaa0147";
+
 var trackingEnabled = true;
 
 var clickid = getUrlVar('clickid');
@@ -88,9 +90,18 @@ $(function() {
 	$('#end_frame').click(function(){
 		//console.log('$(#end_frame).click');
 		trackEvent('click_to_vodafone');
-		window.open('http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red');
+		window.open(CLICK_URL);
 
 	});
+
+
+
+var close_btn = "<img id='close_btn' src='media/close_btn.png' />";
+
+	var standalone_from_url = getUrlVar('standalone');
+	var isStandalone = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes") ? true : false;
+	
+	if (!isStandalone) $('#wrapper').append(close_btn);
 
 	/*
 	setTimeout(function(){
@@ -178,7 +189,6 @@ $(function() {
 
 	<img id="end_frame" src="media/end2.png" />
 
-	<img id="close_btn" src="media/close_btn.png" />
 </div>
 
 <img id="AdMaximTrack" style="position:absolute; margin:0; padding:0; top:-1; left:-1; height:1px; width:1px" />

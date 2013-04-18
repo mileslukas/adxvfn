@@ -113,7 +113,8 @@ var AM_Game = function(){
 	var startBtnContainer;
 
 	function buildStartBtn(){
-		var startBtnContainer = new createjs.Container();
+		
+		startBtnContainer = new createjs.Container();
 
 		var action_txt_img = new Image();
 		action_txt_img.src = "media/game/txt_start_here.png";
@@ -146,9 +147,9 @@ var AM_Game = function(){
 	
 	function setUpGame(e){
 
-		//createjs.Touch.enable(stage);
-
 		stage.removeChild(startBtnContainer);
+
+		
 		preloadAudio(e);
 
 		admaxim_ad_experience.trackEvent('game_load_start');
@@ -316,45 +317,7 @@ var AM_Game = function(){
 
 
 
-
-
-
-		//introPage = new createjs.Container();
-		//introPage.addChild(imgLib['view_start']);
-		//imgLib['logo_white'].y = 500;
-		//introPage.addChild(imgLib['logo_white']);
-		//introPage.onPress = startGame;
-		//gameHolder.addChild(introPage);
-
-
-
-
-
-
-
-
-
-
-
-
-		//gameHolder.addChild(imgLib['cloud3']);
-		//imgLib['cloud3'].onPress = cloudPress;
-		//imgLib['btn_terms'].onPress = function(){window.open(BRAND_TERMS_URL)};
-
-
-		//createjs.Touch.enable(stage);
-
 		stage.addChild(gameHolder);
-	}
-
-	function startGame(e){
-		//preloadAudio(e);
-
-		createjs.Tween.get(introPage).to({alpha:0},400)
-			.call(function(){
-				gameHolder.removeChild(introPage);
-			});
-		
 	}
 
 

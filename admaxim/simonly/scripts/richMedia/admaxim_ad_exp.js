@@ -915,7 +915,6 @@ var AdMaximAdExperience = function() {
 			//loadRestOfBackgrounds();
 			//firstRun = false;
 			//that.trackEvent("firstexpand", "firstexpand2");
-			console.log('isStandalone isStandaloneisStandaloneisStandaloneisStandalone ' + isStandalone);
 			if (typeof isStandalone != "undefined" && isStandalone){
 				$('#ad_wrapper').css({'top':'0px'});
 				that.trackEvent("firstexpand", "firstexpand2");

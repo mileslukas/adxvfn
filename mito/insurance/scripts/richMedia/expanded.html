@@ -16,7 +16,7 @@
 
 <script>
 
-var v = "http://huomdgde.hit.gemius.pl/hitredir/id=pzM1j7s6XZKBsTrsqNGWiKbjXoygPGNaC_sMchWJQdH.k7/fastid=dkqhhmnjufyiirjdokydkbjcykks/stparam=roifqiemzp/url=http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red?ecmp=mob-aaaa0065aaaa0172-aaaa0149";
+var CLICK_URL = "http://huomdgde.hit.gemius.pl/hitredir/id=pzM1j7s6XZKBsTrsqNGWiKbjXoygPGNaC_sMchWJQdH.k7/fastid=lpksbnrketcqzjnnewkqlfrgnmma/stparam=rljmgmrfeh/url=http://m.vodafone.hu/aktualis-ajanlatok/valts/vodafone-red?ecmp=mob-aaaa0065aaaa0172-aaaa0145";
 
 var trackingEnabled = true;
 
@@ -94,6 +94,13 @@ $(function() {
 
 	});
 
+	var close_btn = "<img id='close_btn' src='media/close_btn.png' />";
+
+	var standalone_from_url = getUrlVar('standalone');
+	var isStandalone = (typeof standalone_from_url != "undefined" && standalone_from_url === "yes") ? true : false;
+	
+	if (!isStandalone) $('#wrapper').append(close_btn);
+
 
 	$('#crack').click(function(){
 		// console.log('crack click');
@@ -143,7 +150,6 @@ $(function() {
 	<img id="crack" src="media/crack2.png" />
 
 	<img id="end_frame" src="media/end2.png" />
-	<img id="close_btn" src="media/close_btn.png" />
 </div>
 
 

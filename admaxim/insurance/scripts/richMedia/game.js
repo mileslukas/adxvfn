@@ -131,8 +131,9 @@ var AM_Game = function(){
 
 	
 	function setUpGame(e){
-		preloadAudio(e);
 		stage.removeChild(startBtnContainer);
+
+		preloadAudio(e);
 
 		admaxim_ad_experience.trackEvent('game_load_start');
 
